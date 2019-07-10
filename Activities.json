@@ -1,0 +1,23 @@
+{
+    "tintColor": "FFFFFF",
+    "tabBarColor": "00B156",
+    "unSelectedTabBarColor": "BDBDBD",
+    "list":
+    [
+         {
+            "vc": "ViewController0",
+            "img": "zhuce",
+            "name": "宜蘭工作咖啡廳"
+        },
+        {
+            "vc": "ViewController1",
+            "img": "speaker",
+            "name": "地圖"
+        },
+        {
+            "vc": "ViewController2",
+            "img": "heart",
+            "name": "我的"
+        }
+    ]
+}
