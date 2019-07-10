@@ -1,0 +1,24 @@
+{
+    "navImage": "https://www.crazy-tutorial.com/wp-content/uploads/2018/06/%E5%B0%8F%E9%9B%9E%E5%9C%96-1200x628.jpg",
+    "list":
+    [
+        {
+            "type": 6,
+            "content":
+            {
+                "textImage": "https://2635573591.github.io/Activity/2.png",
+                "infoImage": "https://scontent-atl3-1.cdninstagram.com/vp/781ec869d69a233b9a40231521321fb3/5D96AF48/t51.2885-15/e35/s1080x1080/60030116_178600773131367_5330371538019401285_n.jpg?_nc_ht=scontent-atl3-1.cdninstagram.com",
+                "infoWeb": "https://buzzorange.com/techorange/2019/05/22/kuo-brother-marketing-technique/"
+            }
+        },
+        {
+            "type": 6,
+            "content":
+            {
+                "textImage": "https://static.juksy.com/files/articles/86776/5c42b758a0fa3.png?m=widen&i=800&q=75",
+                "infoImage": "http://store.zhentoo.com/uploads/5/72/572C1678F3.jpeg",
+                "infoWeb": ""
+            }
+        }
+    ]
+}
