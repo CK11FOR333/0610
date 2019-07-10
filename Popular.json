@@ -1,0 +1,56 @@
+{
+    "navBarColor": "00F900",
+    "navImage": "",
+    "tableBackgroundColor": "BBBBBB",
+    "list":
+    [
+        {
+            "type": 7,
+            "cellPaddingColor": "00F900",
+            "content":
+            [
+                {
+                    "text": "文字兩行",
+                    "textColor": "000000",
+                    "textBackgroundColor": "AAAAAA",
+                    "textImage": "https://KayHsiao.github.io/TestActivity/a6865c85gw1fbsso2bkerg204m059k8f.gif",
+                    "textWeb": "https://www.douban.com/event/31542506/"
+                },
+                {
+                    "text": "圖片長寬比 1:1",
+                    "textColor": "000000",
+                    "textBackgroundColor": "AAAAAA",
+                    "textImage": "https://www.slipstick.com/images/2019/general/word-icon-sizes.png",
+                    "textWeb": "https://www.douban.com/event/31506355/"
+                },
+                {
+                    "text": "字型大小13pt",
+                    "textColor": "000000",
+                    "textBackgroundColor": "AAAAAA",
+                    "textImage": "https://developer.android.com/guide/practices/ui_guidelines/images/NB_Icon_Mask_Shapes_Ext_02.gif?hl=zh-tw",
+                    "textWeb": "https://www.douban.com/event/29649275/"
+                },
+                {
+                    "text": "多喝熱水多喝熱水多喝熱水喝熱水多喝熱水多喝熱水",
+                    "textColor": "000000",
+                    "textBackgroundColor": "AAAAAA",
+                    "textImage": "https://img3.doubanio.com/pview/event_poster/large/public/3e1c171d029a3ad.jpg",
+                    "textWeb": "https://img3.doubanio.com/pview/event_poster/large/public/3e1c171d029a3ad.jpg"
+                },
+                {
+                    "text": "ABECEFGHIJK",
+                    "textColor": "000000",
+                    "textBackgroundColor": "AAAAAA",
+                    "textImage": "https://cdn-images-1.medium.com/max/1200/1*tEXH_v2zCl6-qvIXACN0TA.png",
+                    "textWeb": "https://www.douban.com/event/31694916/"
+                },                {
+                    "text": "666",
+                    "textColor": "000000",
+                    "textBackgroundColor": "AAAAAA",
+                    "textImage": "http://icons.iconarchive.com/icons/graphicloads/100-flat/256/home-icon.png",
+                    "textWeb": "https://www.douban.com/event/31690460/"
+                }
+            ]
+        }
+    ]
+}
