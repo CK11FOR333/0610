@@ -1,0 +1,212 @@
+{
+    "navBarColor": "FF9300",
+    "navImage": "https://fpscdn.yam.com/world/201610/9c/92/580c3a14a9c92.jpg",
+    "tableBackgroundColor": "FF9300",
+    "list":
+    [
+        {
+            "type": 5,
+            "content":
+            {
+                "text": "如何進入聖誕派對",
+                "textColor": "111111",
+                "textBackgroundColor": "666666",
+                "textWeb": "https://www.aifian.com/index.html"
+            }
+        },
+        {
+            "type": 4,
+            "cellPaddingColor": "888888",
+            "content":
+            [
+                {
+                    "text": "十時反水",
+                    "textColor": "FFFFFF",
+                    "textBackgroundColor": "222222",
+                    "textImage": "https://3.bp.blogspot.com/-kvjDGpVjCX4/WqnSYsUNfnI/AAAAAAALOuY/jg8bxuU5Ch8o-1GIwEe8fJz8AzZz62XTACLcBGAs/s1600/AS003766_06.gif",
+                    "textWeb": "https://www.douban.com/event/31542506/"
+                },
+                {
+                    "text": "活動大廳",
+                    "textColor": "FFFFFF",
+                    "textBackgroundColor": "222222",
+                    "textImage": "https://img3.doubanio.com/pview/event_poster/large/public/125451ad27ddb74.jpg",
+                    "textWeb": "https://www.douban.com/event/31506355/"
+                },
+                {
+                    "text": "vip俱樂部",
+                    "textColor": "FFFFFF",
+                    "textBackgroundColor": "222222",
+                    "textImage": "https://img1.doubanio.com/pview/event_poster/large/public/9549e472024bb47.jpg",
+                    "textWeb": "https://www.douban.com/event/29649275/"
+                },
+                {
+                    "text": "電子vip",
+                    "textColor": "FFFFFF",
+                    "textBackgroundColor": "222222",
+                    "textImage": "https://img3.doubanio.com/pview/event_poster/large/public/3e1c171d029a3ad.jpg",
+                    "textWeb": "https://img3.doubanio.com/pview/event_poster/large/public/3e1c171d029a3ad.jpg"
+                },
+                {
+                    "text": "視訊企業管家",
+                    "textColor": "FFFFFF",
+                    "textBackgroundColor": "222222",
+                    "textImage": "https://hostedimages-cdn.aweber-static.com/OTE=/original/3f2eb8255095407eb0fd5779d59a1ff5.gif",
+                    "textWeb": "https://www.douban.com/event/31694916/"
+                },                {
+                    "text": "在線克服",
+                    "textColor": "FFFFFF",
+                    "textBackgroundColor": "222222",
+                    "textImage": "https://img1.doubanio.com/pview/event_poster/large/public/415dc29717cfaf7.jpg",
+                    "textWeb": "https://www.douban.com/event/31690460/"
+                }
+            ]
+        },
+        {
+            "type": 3,
+            "content":
+            [
+                {
+                    "text": "快速充值",
+                    "textColor": "000000",
+                    "textBackgroundColor": "666666",
+                    "textImage": "http://cdn.shopify.com/s/files/1/1431/5776/products/open-mouth-smiling-emoji-rubber-stamp_grande.png?v=1507157804",
+                    "textWeb": "https://developer.apple.com/support/app-store/"
+                },
+                {
+                    "text": "快速充值",
+                    "textColor": "000000",
+                    "textBackgroundColor": "AAAAAA",
+                    "textImage": "https://developer.android.com/guide/practices/ui_guidelines/images/NB_Icon_Mask_Shapes_Ext_02.gif?hl=zh-tw",
+                    "textWeb": "https://www.douban.com/event/31694916/"
+                },
+                {
+                    "text": "快速充值",
+                    "textColor": "000000",
+                    "textBackgroundColor": "FFFFFF",
+                    "textImage": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmLEJL2tRnyZoc5InzpVVBi28cqpDgNrBJtMuwiQmPH21LpJ2V8Q",
+                    "textWeb": "https://mrmad.com.tw/ios-13-remove-app-store-download-limit"
+                }
+            ]
+        },
+        {
+            "type": 2,
+            "content":
+            [
+                {
+                    "text": "線路一 （APP登陸後綴:@xjp）",
+                    "textColor": "AAAAAA",
+                    "textBackgroundColor": "111111",
+                    "info": "進入官網",
+                    "infoColor": "333333",
+                    "infoBackgroundColor": "BBBBBB",
+                    "infoWeb": "https://www.douban.com/event/31694916/"
+                },
+                {
+                    "text": "多喝熱水",
+                    "textColor": "AAAAAA",
+                    "textBackgroundColor": "111111",
+                    "info": "進入遊戲",
+                    "infoColor": "333333",
+                    "infoBackgroundColor": "BBBBBB",
+                    "infoWeb": "https://www.appcoda.com.tw/"
+                }
+            ]
+        },
+        {
+            "type": 1,
+            "title": "網站公告:",
+            "titleColor": "123456",
+            "msg": "現今大多的金融服務如、信用卡額度、房貸利率成數、買車頭期利率、甚至到創業補助與獎助學金等，都跟個人信用紀錄息息相關。",
+            "msgColor": "654321",
+            "backgroundColor": "987654",
+            "content":
+            [
+                {
+                    "textImage": "https://2635573591.github.io/Activity/1.png",
+                    "textWeb": ""
+                },
+                {
+                    "textImage": "https://2635573591.github.io/Activity/2.png",
+                    "textWeb": ""
+                },                {
+                    "textImage": "http://www.g-photography.net/file_picture/3/3587/4.jpg",
+                    "textWeb": ""
+                },
+                {
+                    "textImage": "s3.jpg",
+                    "textWeb": ""
+                },
+                {
+                    "textImage": "http://img2.zjolcdn.com/pic/0/13/66/56/13665652_914292.jpg",
+                    "textWeb": ""
+                },
+                {
+                    "textImage": "http://c.hiphotos.baidu.com/image/w%3D400/sign=c2318ff84334970a4773112fa5c8d1c0/b7fd5266d0160924c1fae5ccd60735fae7cd340d.jpg",
+                    "textWeb": ""
+                },
+                {
+                    "textImage": "http://img3.redocn.com/tupian/20150806/weimeisheyingtupian_4779232.jpg",
+                    "textWeb": ""
+                }
+            ]
+        },
+        {
+            "type": 7,
+            "cellPaddingColor": "00F900",
+            "content":
+            [
+                {
+                    "text": "111",
+                    "textColor": "000000",
+                    "textBackgroundColor": "AAAAAA",
+                    "textImage": "https://img1.doubanio.com/pview/event_poster/large/public/14aae562b375719.jpg",
+                    "textWeb": "https://www.douban.com/event/31542506/"
+                },
+                {
+                    "text": "222",
+                    "textColor": "000000",
+                    "textBackgroundColor": "AAAAAA",
+                    "textImage": "https://img3.doubanio.com/pview/event_poster/large/public/125451ad27ddb74.jpg",
+                    "textWeb": "https://www.douban.com/event/31506355/"
+                },
+                {
+                    "text": "333",
+                    "textColor": "000000",
+                    "textBackgroundColor": "AAAAAA",
+                    "textImage": "https://img1.doubanio.com/pview/event_poster/large/public/9549e472024bb47.jpg",
+                    "textWeb": "https://www.douban.com/event/29649275/"
+                },
+                {
+                    "text": "444",
+                    "textColor": "000000",
+                    "textBackgroundColor": "AAAAAA",
+                    "textImage": "https://img3.doubanio.com/pview/event_poster/large/public/3e1c171d029a3ad.jpg",
+                    "textWeb": "https://img3.doubanio.com/pview/event_poster/large/public/3e1c171d029a3ad.jpg"
+                },
+                {
+                    "text": "555",
+                    "textColor": "000000",
+                    "textBackgroundColor": "AAAAAA",
+                    "textImage": "https://img1.doubanio.com/pview/event_poster/large/public/63fdb67060ecec8.jpg",
+                    "textWeb": "https://www.douban.com/event/31694916/"
+                },                {
+                    "text": "666",
+                    "textColor": "000000",
+                    "textBackgroundColor": "AAAAAA",
+                    "textImage": "https://img1.doubanio.com/pview/event_poster/large/public/415dc29717cfaf7.jpg",
+                    "textWeb": "https://www.douban.com/event/31690460/"
+                }
+            ]
+        },
+        {
+            "type": 6,
+            "content":
+            {
+                "textImage": "https://2635573591.github.io/Activity/2.png",
+                "infoImage": "https://img3.doubanio.com/pview/event_poster/large/public/3e1c171d029a3ad.jpg",
+                "infoWeb": ""
+            }
+        }
+    ]
+}
