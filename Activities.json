@@ -5,17 +5,17 @@
     "list":
     [
          {
-            "vc": "ViewController6",
+            "vc": "ViewController3",
             "img": "zhuce",
             "name": "宜蘭工作咖啡廳"
         },
         {
-            "vc": "ViewController7",
+            "vc": "ViewController4",
             "img": "speaker",
             "name": "地圖"
         },
         {
-            "vc": "ViewController3",
+            "vc": "ViewController5",
             "img": "heart",
             "name": "我的"
         }
