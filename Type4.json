@@ -1,0 +1,48 @@
+{
+    "type": 4,
+    "cellPaddingColor": "888888",
+    "content":
+    [
+        {
+            "text": "十時反水",
+            "textColor": "FFFFFF",
+            "textBackgroundColor": "222222",
+            "textImage": "https://img1.doubanio.com/pview/event_poster/large/public/14aae562b375719.jpg",
+            "textWeb": "https://www.douban.com/event/31542506/"
+        },
+        {
+            "text": "活動大廳",
+            "textColor": "FFFFFF",
+            "textBackgroundColor": "222222",
+            "textImage": "https://img3.doubanio.com/pview/event_poster/large/public/125451ad27ddb74.jpg",
+            "textWeb": "https://www.douban.com/event/31506355/"
+        },
+        {
+            "text": "vip俱樂部",
+            "textColor": "FFFFFF",
+            "textBackgroundColor": "222222",
+            "textImage": "https://img1.doubanio.com/pview/event_poster/large/public/9549e472024bb47.jpg",
+            "textWeb": "https://www.douban.com/event/29649275/"
+        },
+        {
+            "text": "電子vip",
+            "textColor": "FFFFFF",
+            "textBackgroundColor": "222222",
+            "textImage": "https://img3.doubanio.com/pview/event_poster/large/public/3e1c171d029a3ad.jpg",
+            "textWeb": "https://img3.doubanio.com/pview/event_poster/large/public/3e1c171d029a3ad.jpg"
+        },
+        {
+            "text": "視訊企業管家",
+            "textColor": "FFFFFF",
+            "textBackgroundColor": "222222",
+            "textImage": "https://img1.doubanio.com/pview/event_poster/large/public/63fdb67060ecec8.jpg",
+            "textWeb": "https://www.douban.com/event/31694916/"
+        },        {
+            "text": "在線克服",
+            "textColor": "FFFFFF",
+            "textBackgroundColor": "222222",
+            "textImage": "https://img1.doubanio.com/pview/event_poster/large/public/415dc29717cfaf7.jpg",
+            "textWeb": "https://www.douban.com/event/31690460/"
+        }
+    ]
+}

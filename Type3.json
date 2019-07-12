@@ -1,0 +1,27 @@
+{
+    "type": 3,
+    "content":
+    [
+        {
+            "text": "快速充值",
+            "textColor": "000000",
+            "textBackgroundColor": "666666",
+            "textImage": "https://img1.doubanio.com/pview/event_poster/large/public/63fdb67060ecec8.jpg",
+            "textWeb": "https://www.douban.com/event/31694916/"
+        },
+        {
+            "text": "快速充值",
+            "textColor": "000000",
+            "textBackgroundColor": "AAAAAA",
+            "textImage": "https://img1.doubanio.com/pview/event_poster/large/public/63fdb67060ecec8.jpg",
+            "textWeb": "https://www.douban.com/event/31694916/"
+        },
+        {
+            "text": "快速充值",
+            "textColor": "000000",
+            "textBackgroundColor": "FFFFFF",
+            "textImage": "https://img1.doubanio.com/pview/event_poster/large/public/63fdb67060ecec8.jpg",
+            "textWeb": "https://www.douban.com/event/31694916/"
+        }
+    ]
+}
