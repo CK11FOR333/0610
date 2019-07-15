@@ -146,7 +146,7 @@ extension SettingsViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        return "version \(appVersionString)"
+        return "version \(appVersionString)(\(appBuildString))"
     }
 
 }
