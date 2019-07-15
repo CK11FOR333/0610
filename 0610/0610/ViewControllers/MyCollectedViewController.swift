@@ -75,7 +75,7 @@ class MyCollectedViewController: UIViewController {
 
     fileprivate func applyTheme() {
         view.backgroundColor = Theme.current.tableViewBackground
-        tableView.backgroundColor = Theme.current.tableViewCellBackgorund
+        tableView.backgroundColor = Theme.current.tableViewBackground
         tableView.reloadData()
 
         setupNavigationBar()

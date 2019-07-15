@@ -80,7 +80,7 @@ class HomeViewController: UIViewController {
 //        textFieldInsideSearchBarLabel?.textColor = Theme.current.tint
 
 
-        tableView.backgroundColor = Theme.current.tableViewCellBackgorund
+        tableView.backgroundColor = Theme.current.tableViewBackground
 
         tableView.reloadData()
 

@@ -13,6 +13,8 @@ import SwiftyBeaver
 
 let log = SwiftyBeaver.self
 
+let appDelegate = UIApplication.shared.delegate as! AppDelegate
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -93,3 +95,11 @@ extension AppDelegate {
 
 }
 
+extension AppDelegate {
+
+    func presentAlertView(_ title: String?, message: String?, completion: (() -> Void)? = nil) {
+        let visibleViewController = window?.visibleViewController
+        visibleViewController?.presentAlertView(title, message: message, completion: completion)
+    }
+
+}

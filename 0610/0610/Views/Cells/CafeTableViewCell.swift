@@ -194,7 +194,7 @@ class CafeTableViewCell: UITableViewCell {
     }
 
     func applyTheme() {
-        self.backgroundColor = Theme.current.tableViewCellBackgorund
+        self.backgroundColor = Theme.current.tableViewBackground
 
         cardView.backgroundColor = Theme.current.accent
         cardView.shadowColor = Theme.current.shadow

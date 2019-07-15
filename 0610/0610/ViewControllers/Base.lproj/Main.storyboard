@@ -263,7 +263,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DfJ-01-O4c">
-                                                    <rect key="frame" x="14" y="11.5" width="235" height="21"/>
+                                                    <rect key="frame" x="15" y="11.5" width="234" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -276,7 +276,7 @@
                                                 </switch>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="DfJ-01-O4c" firstAttribute="leading" secondItem="Xfy-v2-sYD" secondAttribute="leading" constant="14" id="2Rn-GN-poC"/>
+                                                <constraint firstItem="DfJ-01-O4c" firstAttribute="leading" secondItem="Xfy-v2-sYD" secondAttribute="leadingMargin" id="H95-7m-pvA"/>
                                                 <constraint firstItem="DfJ-01-O4c" firstAttribute="centerY" secondItem="Xfy-v2-sYD" secondAttribute="centerY" id="KZs-xK-7t2"/>
                                                 <constraint firstItem="l5V-vI-5WX" firstAttribute="leading" secondItem="DfJ-01-O4c" secondAttribute="trailing" constant="8" id="M1A-op-67x"/>
                                                 <constraint firstItem="l5V-vI-5WX" firstAttribute="centerY" secondItem="Xfy-v2-sYD" secondAttribute="centerY" id="XVE-pL-sJ4"/>

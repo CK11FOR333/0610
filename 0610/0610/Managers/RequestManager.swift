@@ -107,6 +107,8 @@ class RequestManager {
 //                    alertVC.messageString = error.localizedDescription
 //                    alertVC.confirmString = "確定"
 //                    currentVC.present(alertVC, animated: true, completion: nil)
+                    log.debug(error.localizedDescription)
+                    appDelegate.presentAlertView("網路錯誤", message: nil)
                     return
                 }
         }
@@ -156,7 +158,7 @@ extension RequestManager {
 
     /// 
     func getMarqueel(success: @escaping (_ data: JSON) -> Void) {
-        baseRequest(.get, url: AppAPI.popular, parameters: nil, needToken: false, callback: success)
+        baseRequest(.get, url: AppAPI.marqueel, parameters: nil, needToken: false, callback: success)
     }
 
     /// 台北咖啡廳
