@@ -21,12 +21,12 @@
         },
         {
             "vc": "ViewController3",
-            "img": "zhuce",
+            "img": "account_balance",
             "name": "活動大廳"
         },
         {
             "vc": "ViewController4",
-            "img": "speaker",
+            "img": "list",
             "name": "佈告欄"
         }
     ]
