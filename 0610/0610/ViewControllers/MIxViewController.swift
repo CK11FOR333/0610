@@ -87,6 +87,8 @@ class MIxViewController: UIViewController {
         }
     }
 
+    var refreshControl: UIRefreshControl!
+
     @IBOutlet weak var tableView: UITableView!
 
     override func viewDidLoad() {
@@ -134,55 +136,120 @@ class MIxViewController: UIViewController {
         // type 7
         let sevenTableViewCell: UINib = UINib(nibName: "TypeSevenTableViewCell", bundle: nil)
         tableView.register(sevenTableViewCell, forCellReuseIdentifier: "TypeSevenTableViewCell")
+
+
+        refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(getJSON), for: .valueChanged)
+        if #available(iOS 10.0, *) {
+            tableView.refreshControl = refreshControl
+        } else {
+            // Fallback on earlier versions
+            tableView.addSubview(refreshControl)
+        }
     }
 
-    func getJSON() {
+    @objc func getJSON() {
         if let vcType = vcType {
             switch vcType {
             case .viewController3:
                 requestManager.getＣourse { [weak self] (json) in
                     log.info(json)
                     guard let strongSelf = self else { return }
-                    strongSelf.showNavBarImageWith(json: json, vc: strongSelf)
-                    strongSelf.setTableViewBackgroundColor(json: json, vc: strongSelf)
+
                     strongSelf.appCellModelsWith(json: json, vc: strongSelf)
-                    self?.tableView.reloadData()
+
+                    if #available(iOS 10.0, *) {
+                        strongSelf.tableView.refreshControl?.endRefreshing()
+                    } else {
+                        // Fallback on earlier versions
+                        strongSelf.refreshControl.endRefreshing()
+                    }
+
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.3, execute: {
+                        strongSelf.showNavBarImageWith(json: json, vc: strongSelf)
+                        strongSelf.setTableViewBackgroundColor(json: json, vc: strongSelf)
+                        strongSelf.tableView.reloadData()
+                    })
                 }
             case .viewController4:
                 requestManager.getParty { [weak self] (json) in
                     log.info(json)
                     guard let strongSelf = self else { return }
-                    strongSelf.showNavBarImageWith(json: json, vc: strongSelf)
-                    strongSelf.setTableViewBackgroundColor(json: json, vc: strongSelf)
+
                     strongSelf.appCellModelsWith(json: json, vc: strongSelf)
-                    self?.tableView.reloadData()
+
+                    if #available(iOS 10.0, *) {
+                        strongSelf.tableView.refreshControl?.endRefreshing()
+                    } else {
+                        // Fallback on earlier versions
+                        strongSelf.refreshControl.endRefreshing()
+                    }
+
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.3, execute: {
+                        strongSelf.showNavBarImageWith(json: json, vc: strongSelf)
+                        strongSelf.setTableViewBackgroundColor(json: json, vc: strongSelf)
+                        strongSelf.tableView.reloadData()
+                    })
                 }
             case .viewController5:
                 requestManager.getPopular { [weak self] (json) in
                     log.info(json)
                     guard let strongSelf = self else { return }
-                    strongSelf.showNavBarImageWith(json: json, vc: strongSelf)
-                    strongSelf.setTableViewBackgroundColor(json: json, vc: strongSelf)
+
                     strongSelf.appCellModelsWith(json: json, vc: strongSelf)
-                    self?.tableView.reloadData()
+
+                    if #available(iOS 10.0, *) {
+                        strongSelf.tableView.refreshControl?.endRefreshing()
+                    } else {
+                        // Fallback on earlier versions
+                        strongSelf.refreshControl.endRefreshing()
+                    }
+
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.3, execute: {
+                        strongSelf.showNavBarImageWith(json: json, vc: strongSelf)
+                        strongSelf.setTableViewBackgroundColor(json: json, vc: strongSelf)
+                        strongSelf.tableView.reloadData()
+                    })
                 }
             case .viewController6:
                 requestManager.getHot { [weak self] (json) in
                     log.info(json)
                     guard let strongSelf = self else { return }
-                    strongSelf.showNavBarImageWith(json: json, vc: strongSelf)
-                    strongSelf.setTableViewBackgroundColor(json: json, vc: strongSelf)
+
                     strongSelf.appCellModelsWith(json: json, vc: strongSelf)
-                    self?.tableView.reloadData()
+
+                    if #available(iOS 10.0, *) {
+                        strongSelf.tableView.refreshControl?.endRefreshing()
+                    } else {
+                        // Fallback on earlier versions
+                        strongSelf.refreshControl.endRefreshing()
+                    }
+
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.3, execute: {
+                        strongSelf.showNavBarImageWith(json: json, vc: strongSelf)
+                        strongSelf.setTableViewBackgroundColor(json: json, vc: strongSelf)
+                        strongSelf.tableView.reloadData()
+                    })
                 }
             case .viewController7:
                 requestManager.getMarqueel { [weak self] (json) in
                     log.info(json)
                     guard let strongSelf = self else { return }
-                    strongSelf.showNavBarImageWith(json: json, vc: strongSelf)
-                    strongSelf.setTableViewBackgroundColor(json: json, vc: strongSelf)
+
                     strongSelf.appCellModelsWith(json: json, vc: strongSelf)
-                    self?.tableView.reloadData()
+
+                    if #available(iOS 10.0, *) {
+                        strongSelf.tableView.refreshControl?.endRefreshing()
+                    } else {
+                        // Fallback on earlier versions
+                        strongSelf.refreshControl.endRefreshing()
+                    }
+
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.3, execute: {
+                        strongSelf.showNavBarImageWith(json: json, vc: strongSelf)
+                        strongSelf.setTableViewBackgroundColor(json: json, vc: strongSelf)
+                        strongSelf.tableView.reloadData()
+                    })
                 }
             default:
                 break
