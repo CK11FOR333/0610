@@ -21,12 +21,12 @@
         },
         {
             "vc": "ViewController3",
-            "img": "account_balance",
+            "img": "archive",
             "name": "活動大廳"
         },
         {
             "vc": "ViewController4",
-            "img": "outline_laptop_mac_black_36pt",
+            "img": "store",
             "name": "佈告欄"
         }
     ]
