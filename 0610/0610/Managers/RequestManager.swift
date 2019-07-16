@@ -85,12 +85,12 @@ class RequestManager {
             "Content-Type": "application/json"
         ]
 
-//        SVProgressHUD.show()
+        SVProgressHUD.show()
 
         currentRequest = Alamofire.request(url, method: method, parameters: parameters, encoding: JSONEncoding.default, headers: headers)
             .responseJSON { response -> Void in
                 
-//                SVProgressHUD.dismiss()
+                SVProgressHUD.dismiss()
 
                 switch response.result {
                 case .success:
