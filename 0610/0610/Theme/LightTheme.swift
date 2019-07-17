@@ -9,15 +9,15 @@
 import UIKit
 
 class LightTheme: ThemeProtocol {
-    var navigationBar: UIColor = UIColor(hexString: "00B156")!
-    var tabBar: UIColor = UIColor(hexString: "00B156")!
+    var navigationBar: UIColor = UIColor(hexString: "23C0AE")!
+    var tabBar: UIColor = UIColor(hexString: "23C0AE")!
     var tabBarUnSelected: UIColor = UIColor(hexString: "828282")!
     var tableViewBackground: UIColor = UIColor(hexString: "F2F2F2")!
     var tableViewCellBackgorund: UIColor = UIColor.white
-    var tableViewCellSelectedBackground: UIColor = UIColor(hexString: "41D192")!
+    var tableViewCellSelectedBackground: UIColor = UIColor(hexString: "23C0AE")!
     var tableViewCellLightText: UIColor = UIColor(hexString: "333333")!
     var tableViewCellDarkText: UIColor = UIColor.white
-    var accent: UIColor = UIColor(hexString: "00B156")!
+    var accent: UIColor = UIColor(hexString: "23C0AE")!
     var tint: UIColor = UIColor.white
     var shadow: UIColor = UIColor(hexString: "828282")!
 

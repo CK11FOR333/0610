@@ -9,15 +9,15 @@
 import UIKit
 
 class DarkTheme: ThemeProtocol {
-    var navigationBar: UIColor = UIColor(hexString: "00BE5D")!
-    var tabBar: UIColor = UIColor(hexString: "00BE5D")!
+    var navigationBar: UIColor = UIColor(hexString: "24C4B3")!
+    var tabBar: UIColor = UIColor(hexString: "24C4B3")!
     var tabBarUnSelected: UIColor = UIColor(hexString: "828282")!
     var tableViewBackground: UIColor = UIColor.black
-    var tableViewCellBackgorund: UIColor = UIColor(hexString: "333333")!
-    var tableViewCellSelectedBackground: UIColor = UIColor(hexString: "41D192")!
+    var tableViewCellBackgorund: UIColor = UIColor(hexString: "1B1B1D")!
+    var tableViewCellSelectedBackground: UIColor = UIColor(hexString: "24C4B3")!
     var tableViewCellLightText: UIColor = UIColor.white
     var tableViewCellDarkText: UIColor = UIColor.black
-    var accent: UIColor = UIColor(hexString: "00BE5D")!
+    var accent: UIColor = UIColor(hexString: "24C4B3")!
     var tint: UIColor = UIColor.black
     var shadow: UIColor = UIColor.black
 
