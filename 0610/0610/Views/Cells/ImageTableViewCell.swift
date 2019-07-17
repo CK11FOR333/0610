@@ -40,7 +40,7 @@ class ImageTableViewCell: UITableViewCell {
 
                 cellImageView.af_setImage(
                     withURL: url,
-                    placeholderImage: nil,
+                    placeholderImage: UIImage.init(color: .white, size: CGSize.zero),
                     filter: filter,
                     imageTransition: .crossDissolve(0.2)
                 )
@@ -73,7 +73,7 @@ class ImageTableViewCell: UITableViewCell {
 //                    }
 //                }
             } else {
-                cellImageView.image = nil
+                cellImageView.image = UIImage(named: "image-placeholder-icon")
             }
         }
     }

@@ -89,11 +89,12 @@ class RequestManager {
 
         currentRequest = Alamofire.request(url, method: method, parameters: parameters, encoding: JSONEncoding.default, headers: headers)
             .responseJSON { response -> Void in
-                
-                SVProgressHUD.dismiss()
 
                 switch response.result {
                 case .success:
+
+                    SVProgressHUD.dismiss(withDelay: 0.5)
+
                     if let value = response.result.value {
 //                        log.info(value)
                         let json = JSON(value)
@@ -101,6 +102,10 @@ class RequestManager {
                         callback(json)
                     }
                 case .failure(let error):
+
+                    SVProgressHUD.dismiss()
+
+
 //                    let currentVC = appDelegate.findCurrentViewController()
 //                    let alertVC = AlertViewController.instantiateFromStoryboard()
 //                    alertVC.titleSting = ""

@@ -39,7 +39,7 @@ class ImageSectionView: UITableViewHeaderFooterView {
 
                 sectionImageView.af_setImage(
                     withURL: url,
-                    placeholderImage: nil,
+                    placeholderImage: UIImage.init(color: .white, size: CGSize.zero),
                     filter: filter,
                     imageTransition: .crossDissolve(0.2)
                 )
@@ -66,7 +66,7 @@ class ImageSectionView: UITableViewHeaderFooterView {
 //                    }
 //                }
             } else {
-                sectionImageView.image = nil
+                sectionImageView.image = UIImage(named: "image-placeholder-icon")
             }
         }
     }
