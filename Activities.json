@@ -18,16 +18,6 @@
             "vc": "ViewController2",
             "img": "heart",
             "name": "我的"
-        },
-        {
-            "vc": "ViewController3",
-            "img": "archive",
-            "name": "活動大廳"
-        },
-        {
-            "vc": "ViewController4",
-            "img": "store",
-            "name": "佈告欄"
         }
     ]
 }
