@@ -67,7 +67,7 @@ class SettingsViewController: UIViewController {
 
         let mailController = MFMailComposeViewController()
 
-        mailController.navigationBar.tintColor = UIColor.white
+        mailController.navigationBar.tintColor = Theme.current.accent
         mailController.mailComposeDelegate = self
 
         mailController.setSubject("宜蘭工作咖啡館 \(appVersionString)")
