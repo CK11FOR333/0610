@@ -132,17 +132,51 @@
                                 <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rt1-FU-aYj">
+                                <rect key="frame" x="240" y="488" width="60" height="60"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="filter_list" translatesAutoresizingMaskIntoConstraints="NO" id="qGO-BP-j6i">
+                                        <rect key="frame" x="15" y="15" width="30" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="DeP-09-G5V"/>
+                                            <constraint firstAttribute="width" constant="30" id="UFh-Qg-v4B"/>
+                                        </constraints>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ofC-bN-2iG">
+                                        <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+                                        <connections>
+                                            <action selector="clickSortButton:" destination="z53-N7-0hS" eventType="touchUpInside" id="x4Y-co-KTq"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="2bm-Pj-eOL"/>
+                                    <constraint firstItem="ofC-bN-2iG" firstAttribute="top" secondItem="Rt1-FU-aYj" secondAttribute="top" id="2rU-mn-W6R"/>
+                                    <constraint firstItem="qGO-BP-j6i" firstAttribute="centerY" secondItem="Rt1-FU-aYj" secondAttribute="centerY" id="6j3-zb-fDu"/>
+                                    <constraint firstItem="ofC-bN-2iG" firstAttribute="leading" secondItem="Rt1-FU-aYj" secondAttribute="leading" id="7h5-Mo-C0F"/>
+                                    <constraint firstAttribute="bottom" secondItem="ofC-bN-2iG" secondAttribute="bottom" id="KjU-um-wkL"/>
+                                    <constraint firstAttribute="width" constant="60" id="RRr-f9-Adf"/>
+                                    <constraint firstAttribute="trailing" secondItem="ofC-bN-2iG" secondAttribute="trailing" id="ery-4H-l5T"/>
+                                    <constraint firstItem="qGO-BP-j6i" firstAttribute="centerX" secondItem="Rt1-FU-aYj" secondAttribute="centerX" id="rzN-rL-SbX"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.20000000000000001" green="0.71372549019607845" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="192-sd-roI" firstAttribute="leading" secondItem="gGX-ng-CWl" secondAttribute="leading" id="0kh-Ir-T3O"/>
                             <constraint firstItem="gGX-ng-CWl" firstAttribute="trailing" secondItem="192-sd-roI" secondAttribute="trailing" id="0sD-2B-dIN"/>
+                            <constraint firstItem="gGX-ng-CWl" firstAttribute="bottom" secondItem="Rt1-FU-aYj" secondAttribute="bottom" constant="20" id="Pfg-KA-8fY"/>
+                            <constraint firstItem="gGX-ng-CWl" firstAttribute="trailing" secondItem="Rt1-FU-aYj" secondAttribute="trailing" constant="20" id="Xfo-o8-qRZ"/>
                             <constraint firstItem="192-sd-roI" firstAttribute="top" secondItem="gGX-ng-CWl" secondAttribute="top" id="hiO-MA-AAV"/>
                             <constraint firstItem="gGX-ng-CWl" firstAttribute="bottom" secondItem="192-sd-roI" secondAttribute="bottom" id="vuB-ra-ql0"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="gGX-ng-CWl"/>
                     </view>
                     <connections>
+                        <outlet property="SortButton" destination="ofC-bN-2iG" id="J1H-cJ-7kN"/>
+                        <outlet property="SortImageView" destination="qGO-BP-j6i" id="Xwn-zw-EtN"/>
+                        <outlet property="SortView" destination="Rt1-FU-aYj" id="JPC-ly-Pc8"/>
                         <outlet property="tableView" destination="192-sd-roI" id="s29-Gb-1X3"/>
                     </connections>
                 </viewController>
@@ -319,6 +353,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="filter_list" width="36" height="36"/>
         <image name="google_location_con" width="170" height="170"/>
     </resources>
 </document>

@@ -22,6 +22,9 @@ class HomeViewController: UIViewController {
 
     var vcType: MyViewControllerType!
 
+    /// 預設台北
+    var cityName: String = "taipei"
+
     var cafes: [Cafe] = []
     var searchResult: [Cafe] = []
 
@@ -30,13 +33,22 @@ class HomeViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
 
+    @IBOutlet weak var SortView: UIView!
+    @IBOutlet weak var SortImageView: UIImageView!
+    @IBOutlet weak var SortButton: UIButton!
+
+    @IBAction func clickSortButton(_ sender: UIButton) {
+        showSortActions()
+    }
+
 //    @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationBar()
         setupTableView()
-        getJSON()
+        setupFilterButton()
+        getCafes(with: cityName)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -96,7 +108,7 @@ class HomeViewController: UIViewController {
     }
 
     func setupNavigationBar() {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "navbar_icon_filter_default"), style: .plain, target: self, action: #selector(showSortActions))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "navbar_icon_filter_default"), style: .plain, target: self, action: #selector(showFilterActions))
 
         // SearchController
         searchController = UISearchController(searchResultsController: nil)
@@ -116,7 +128,7 @@ class HomeViewController: UIViewController {
 
         refreshControl = UIRefreshControl()
 
-        refreshControl.addTarget(self, action: #selector(getJSON), for: .valueChanged)
+        refreshControl.addTarget(self, action: #selector(getCafes), for: .valueChanged)
         if #available(iOS 10.0, *) {
             tableView.refreshControl = refreshControl
         } else {
@@ -127,8 +139,19 @@ class HomeViewController: UIViewController {
         tableView.register(nibWithCellClass: CafeTableViewCell.self)
     }
 
-    @objc func getJSON() {
-        requestManager.getYilanCafe { [weak self] (cafes) in
+    func setupFilterButton() {
+        SortImageView.image = UIImage(named: "filter_list")?.withRenderingMode(.alwaysTemplate)
+        SortImageView.tintColor = Theme.current.tint
+        SortView.backgroundColor = Theme.current.accent
+        SortView.layer.cornerRadius = 30
+        SortView.layer.shadowColor = UIColor.black.cgColor
+        SortView.layer.shadowOffset = CGSize(width: 0, height: 2)
+        SortView.layer.shadowOpacity = 0.5
+        SortView.layer.masksToBounds = false
+    }
+
+    @objc func getCafes(with name: String) {
+        requestManager.getCafe(with: name) { [weak self] (cafes) in
             guard let strongSelf = self else { return }
             strongSelf.cafes = cafes
             if #available(iOS 10.0, *) {
@@ -159,6 +182,40 @@ class HomeViewController: UIViewController {
             }
             return false
         })
+    }
+
+    @objc func showFilterActions() {
+        let alertController = UIAlertController.init(title: "選擇城市", message: nil, preferredStyle: .actionSheet)
+        alertController.addAction(title: "台北", style: .default, isEnabled: true) { (action) in
+            self.getCafes(with: "taipei")
+        }
+        alertController.addAction(title: "桃園", style: .default, isEnabled: true) { (action) in
+            self.getCafes(with: "taipei")
+        }
+        alertController.addAction(title: "新竹", style: .default, isEnabled: true) { (action) in
+            self.getCafes(with: "taipei")
+        }
+        alertController.addAction(title: "苗栗", style: .default, isEnabled: true) { (action) in
+            self.getCafes(with: "taipei")
+        }
+        alertController.addAction(title: "台中", style: .default, isEnabled: true) { (action) in
+            self.getCafes(with: "taipei")
+        }
+        alertController.addAction(title: "宜蘭", style: .default, isEnabled: true) { (action) in
+            self.getCafes(with: "yilan")
+        }
+        alertController.addAction(title: "取消", style: .cancel, isEnabled: true) { (action) in
+            //
+        }
+
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            alertController.popoverPresentationController?.barButtonItem = self.navigationItem.rightBarButtonItem
+            alertController.popoverPresentationController?.permittedArrowDirections = .up
+            alertController.popoverPresentationController?.sourceView = self.view
+            alertController.popoverPresentationController?.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
+        }
+
+        alertController.show()
     }
 
     @objc func showSortActions() {
