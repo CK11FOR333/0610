@@ -10,3 +10,5 @@
 //#define IOS8_UP (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_7_1)
 //#define IOS7_UP (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_6_1)
 //#define IOS6_UP (floor(NSFoundationVersionNumber) >= NSFoundationVersionNumber_iOS_6_0)
+
+#import <Realm.h>

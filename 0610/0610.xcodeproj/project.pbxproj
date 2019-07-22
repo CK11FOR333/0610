@@ -67,6 +67,7 @@
 		83E26AE222AFA3A00080CBA4 /* ImageSectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83E26AE122AFA3A00080CBA4 /* ImageSectionView.xib */; };
 		83E26AE522AFB05A0080CBA4 /* ImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E26AE322AFB05A0080CBA4 /* ImageTableViewCell.swift */; };
 		83E26AE622AFB05A0080CBA4 /* ImageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83E26AE422AFB05A0080CBA4 /* ImageTableViewCell.xib */; };
+		83F3FA2B22E5BF4F00C7A8CF /* CafeRealm.m in Sources */ = {isa = PBXBuildFile; fileRef = 83F3FA2A22E5BF4F00C7A8CF /* CafeRealm.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -132,6 +133,8 @@
 		83E26AE122AFA3A00080CBA4 /* ImageSectionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageSectionView.xib; sourceTree = "<group>"; };
 		83E26AE322AFB05A0080CBA4 /* ImageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageTableViewCell.swift; sourceTree = "<group>"; };
 		83E26AE422AFB05A0080CBA4 /* ImageTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageTableViewCell.xib; sourceTree = "<group>"; };
+		83F3FA2A22E5BF4F00C7A8CF /* CafeRealm.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CafeRealm.m; sourceTree = "<group>"; };
+		83F3FA2C22E5C02400C7A8CF /* CafeRealm.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CafeRealm.h; sourceTree = "<group>"; };
 		83FE325C22C4AFE900030E73 /* 0610-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "0610-Bridging-Header.h"; sourceTree = "<group>"; };
 		89E7B6C47B7734575347E5E1 /* Pods-0610.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-0610.release.xcconfig"; path = "Pods/Target Support Files/Pods-0610/Pods-0610.release.xcconfig"; sourceTree = "<group>"; };
 		8A78272EB4746B68719E04B4 /* Pods_0610.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_0610.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -245,6 +248,8 @@
 				8382C1A022B1EEB10055CCD4 /* Activity.swift */,
 				836811F622BB6B6800FAC2A9 /* ActivityCellContent.swift */,
 				83BCCD1A22C9C4B5007EFD14 /* Cafe.swift */,
+				83F3FA2C22E5C02400C7A8CF /* CafeRealm.h */,
+				83F3FA2A22E5BF4F00C7A8CF /* CafeRealm.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -499,6 +504,7 @@
 				8322687B22CF029100871323 /* ThemeProtocol.swift in Sources */,
 				8340704522B37B4A00F642F4 /* LLCycleScrollView.swift in Sources */,
 				8322687F22CF03E600871323 /* DarkTheme.swift in Sources */,
+				83F3FA2B22E5BF4F00C7A8CF /* CafeRealm.m in Sources */,
 				8341C8E122AE40D90070EBA0 /* AppDelegate.swift in Sources */,
 				83E26ADD22AFA2F20080CBA4 /* ImageSectionView.swift in Sources */,
 				83BCCD1B22C9C4B5007EFD14 /* Cafe.swift in Sources */,

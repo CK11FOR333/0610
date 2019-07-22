@@ -17,6 +17,9 @@ target '0610' do
 #  pod 'JXMarqueeView'
 #  pod "ShowAPI_SDK"
 
+  pod 'Realm'
+  pod 'Realm/Headers'
+
   pod 'Fabric'
   pod 'Crashlytics'
 
