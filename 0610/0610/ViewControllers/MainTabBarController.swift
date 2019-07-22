@@ -10,7 +10,7 @@ import UIKit
 import SwiftyJSON
 
 enum MyViewControllerType: String {
-    case viewController0 = "宜蘭工作咖啡廳"
+    case viewController0 = "工作咖啡廳"
     case viewController1 = "地圖"
     case viewController2 = "我的"
     case viewController3 = "自定義介面0" // course.json
