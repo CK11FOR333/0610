@@ -44,9 +44,9 @@
 		8381389922AF62DB0029683F /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8381389822AF62DB0029683F /* HomeViewController.swift */; };
 		838138A122AF63950029683F /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 838138A022AF63950029683F /* SettingsViewController.swift */; };
 		8382C1A122B1EEB10055CCD4 /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8382C1A022B1EEB10055CCD4 /* Activity.swift */; };
-		8391B70B22D87AB70031559B /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8391B70A22D87AB70031559B /* UIViewController+Extension.swift */; };
-		8391B70D22D87C3E0031559B /* UIWindow+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8391B70C22D87C3E0031559B /* UIWindow+Extension.swift */; };
 		83ABE71E22BCDE88007B04FB /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 83ABE71D22BCDE88007B04FB /* Keys.plist */; };
+		83AEF4E822E8506700AD3B7C /* UIWindow+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AEF4E622E8506700AD3B7C /* UIWindow+Extension.swift */; };
+		83AEF4E922E8506700AD3B7C /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AEF4E722E8506700AD3B7C /* UIViewController+Extension.swift */; };
 		83B60DE722C618FF00C49C58 /* CafeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B60DE622C618FF00C49C58 /* CafeTableViewCell.swift */; };
 		83BCCD1B22C9C4B5007EFD14 /* Cafe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BCCD1A22C9C4B5007EFD14 /* Cafe.swift */; };
 		83C479A022CCAADB0075C9A1 /* MyCollectedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C4799F22CCAADB0075C9A1 /* MyCollectedViewController.swift */; };
@@ -111,9 +111,9 @@
 		8381389822AF62DB0029683F /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		838138A022AF63950029683F /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		8382C1A022B1EEB10055CCD4 /* Activity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
-		8391B70A22D87AB70031559B /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UIViewController+Extension.swift"; path = "../UIViewController+Extension.swift"; sourceTree = "<group>"; };
-		8391B70C22D87C3E0031559B /* UIWindow+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UIWindow+Extension.swift"; path = "../UIWindow+Extension.swift"; sourceTree = "<group>"; };
 		83ABE71D22BCDE88007B04FB /* Keys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
+		83AEF4E622E8506700AD3B7C /* UIWindow+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIWindow+Extension.swift"; sourceTree = "<group>"; };
+		83AEF4E722E8506700AD3B7C /* UIViewController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		83B60DE622C618FF00C49C58 /* CafeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeTableViewCell.swift; sourceTree = "<group>"; };
 		83BCCD1A22C9C4B5007EFD14 /* Cafe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cafe.swift; sourceTree = "<group>"; };
 		83C4799F22CCAADB0075C9A1 /* MyCollectedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCollectedViewController.swift; sourceTree = "<group>"; };
@@ -231,7 +231,7 @@
 			children = (
 				8341C8E022AE40D90070EBA0 /* AppDelegate.swift */,
 				836A7D7522CDB75400C53FE1 /* Constants.swift */,
-				8391B70E22D87C670031559B /* Extensions */,
+				83AEF4E522E8506700AD3B7C /* Extensions */,
 				83CE5F2022AF691B006CCA03 /* ViewControllers */,
 				83E26ADF22AFA3050080CBA4 /* Views */,
 				8382C19F22B1EDFF0055CCD4 /* Models */,
@@ -254,11 +254,11 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		8391B70E22D87C670031559B /* Extensions */ = {
+		83AEF4E522E8506700AD3B7C /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				8391B70A22D87AB70031559B /* UIViewController+Extension.swift */,
-				8391B70C22D87C3E0031559B /* UIWindow+Extension.swift */,
+				83AEF4E622E8506700AD3B7C /* UIWindow+Extension.swift */,
+				83AEF4E722E8506700AD3B7C /* UIViewController+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -492,6 +492,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				836811F722BB6B6800FAC2A9 /* ActivityCellContent.swift in Sources */,
+				83AEF4E822E8506700AD3B7C /* UIWindow+Extension.swift in Sources */,
 				8340704722B37B4A00F642F4 /* LLCycleScrollViewCell.swift in Sources */,
 				8322687622CEF4B000871323 /* SwitchTableViewCell.swift in Sources */,
 				836A7D7422CDAE5400C53FE1 /* ImageManager.swift in Sources */,
@@ -499,7 +500,6 @@
 				8340704322B37B4A00F642F4 /* LLViewExtensions.swift in Sources */,
 				8340704922B37B4A00F642F4 /* LLImagePageControl.swift in Sources */,
 				83DA920A22B8938E00F85385 /* TypeSevenTableViewCell.swift in Sources */,
-				8391B70B22D87AB70031559B /* UIViewController+Extension.swift in Sources */,
 				836A7D7622CDB75500C53FE1 /* Constants.swift in Sources */,
 				83DD456D22B22F8100514557 /* ButtonCollectionViewCell.swift in Sources */,
 				8322687B22CF029100871323 /* ThemeProtocol.swift in Sources */,
@@ -518,6 +518,7 @@
 				83E26AE522AFB05A0080CBA4 /* ImageTableViewCell.swift in Sources */,
 				8322687D22CF032D00871323 /* LightTheme.swift in Sources */,
 				83C479A022CCAADB0075C9A1 /* MyCollectedViewController.swift in Sources */,
+				83AEF4E922E8506700AD3B7C /* UIViewController+Extension.swift in Sources */,
 				83F3FA3122E815EB00C7A8CF /* CafeRealm.swift in Sources */,
 				83DA920622B738A800F85385 /* ButtonTableViewCell.swift in Sources */,
 				8381389722AF51F50029683F /* RequestManager.swift in Sources */,
@@ -531,7 +532,6 @@
 				830BF11522CB0537001621DA /* MapViewController.swift in Sources */,
 				8341C8F522AE4A830070EBA0 /* MIxViewController.swift in Sources */,
 				8322687822CEFF7100871323 /* Theme.swift in Sources */,
-				8391B70D22D87C3E0031559B /* UIWindow+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
