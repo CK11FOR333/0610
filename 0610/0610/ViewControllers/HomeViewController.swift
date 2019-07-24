@@ -170,6 +170,8 @@ class HomeViewController: UIViewController {
         }
 
         refreshControl.tintColor = Theme.current.tint
+
+        SortImageView.tintColor = Theme.current.tint
     }
 
     func setupNavigationBar() {
@@ -266,7 +268,7 @@ class HomeViewController: UIViewController {
             self.getCafes()
         }
         alertController.addAction(title: TaiwanCity.hsinchu.description, style: .default, isEnabled: true) { (action) in
-            self.city = TaiwanCity.hualien
+            self.city = TaiwanCity.hsinchu
             self.getCafes()
         }
         alertController.addAction(title: TaiwanCity.miaoli.description, style: .default, isEnabled: true) { (action) in

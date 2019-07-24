@@ -14,7 +14,10 @@ class LightTheme: ThemeProtocol {
     var tabBarUnSelected: UIColor = UIColor(hexString: "828282")!
     var tableViewBackground: UIColor = UIColor(hexString: "F2F2F2")!
     var tableViewCellBackgorund: UIColor = UIColor.white
-    var tableViewCellSelectedBackground: UIColor = UIColor(hexString: "23C0AE")!
+
+//    var tableViewCellSelectedBackground: UIColor = UIColor(hexString: "23C0AE")!
+    var tableViewCellSelectedBackground: UIColor = UIColor(hexString: "755C49")!
+
     var tableViewCellLightText: UIColor = UIColor(hexString: "333333")!
     var tableViewCellDarkText: UIColor = UIColor.white
     var accent: UIColor = UIColor(hexString: "23C0AE")!
@@ -22,4 +25,6 @@ class LightTheme: ThemeProtocol {
     var shadow: UIColor = UIColor(hexString: "828282")!
 
     var fullStar: UIColor = UIColor(hexString: "F1C84B")!
+    var cornerButton: UIColor = UIColor(hexString: "755C49")!
+//    var cornerButton: UIColor = UIColor(hexString: "67B3EC")!
 }

@@ -108,7 +108,7 @@ class MapViewController: UIViewController {
     func setupLocationButton() {
         locationImageView.image = UIImage(named: "google_location_con")?.withRenderingMode(.alwaysTemplate)
         locationImageView.tintColor = Theme.current.tint
-        locationView.backgroundColor = Theme.current.accent
+        locationView.backgroundColor = Theme.current.cornerButton
         locationView.layer.cornerRadius = 30
         locationView.layer.shadowColor = UIColor.black.cgColor
         locationView.layer.shadowOffset = CGSize(width: 0, height: 2)

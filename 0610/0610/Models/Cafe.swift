@@ -9,6 +9,7 @@
 import Foundation
 
 struct Cafe {
+
     var id: String
     var mrt: String
     var url: String
@@ -27,4 +28,5 @@ struct Cafe {
     var tasty: Int
     var cheap: Int
     var music: Int
+    
 }

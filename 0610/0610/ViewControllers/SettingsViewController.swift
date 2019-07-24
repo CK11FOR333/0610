@@ -163,7 +163,7 @@ extension SettingsViewController: UITableViewDelegate {
         case 2:
             presentContactUsPage()
         case 3:
-            if let url = URL(string: "https://www.privacypolicies.com/privacy/view/8e2cca5e0327d9b039adce7bb9031f8c") {
+            if let url = URL(string: "https://www.privacypolicies.com/privacy/view/5f37b29dd9364d9066545b6a7c4bceb8") {
                 if #available(iOS 10, *) {
                     UIApplication.shared.open(url, options: [:], completionHandler: nil)
                 } else {

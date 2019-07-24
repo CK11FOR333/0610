@@ -149,7 +149,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" red="0.49803921568627452" green="0.39215686274509803" blue="0.31372549019607843" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="2bm-Pj-eOL"/>
                                     <constraint firstItem="ofC-bN-2iG" firstAttribute="top" secondItem="Rt1-FU-aYj" secondAttribute="top" id="2rU-mn-W6R"/>

@@ -46,7 +46,7 @@ class SwitchTableViewCell: UITableViewCell {
     fileprivate func applyTheme() {
         self.backgroundColor = Theme.current.tableViewCellBackgorund
         self.titleLabel.textColor = Theme.current.tableViewCellLightText
-        self.switch.onTintColor = Theme.current.accent
+        self.switch.onTintColor = Theme.current.cornerButton
     }
 
 }

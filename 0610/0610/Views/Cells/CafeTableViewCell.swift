@@ -98,8 +98,9 @@ class CafeTableViewCell: UITableViewCell {
                 musicStarLabel.textColor = cafe.music == 1 ? UIColor(hexString: "EB5757") : musicStarLabel.textColor
 
 
-
-                let isCollected = UserDefaults.standard.bool(forKey: cafe.id)
+                let isCollected = realmManager.isCafeCollected(cafe)
+//                let isCollected = UserDefaults.standard.bool(forKey: cafe.id)
+                
                 collectButton.isSelected = isCollected ? true : false
 //                collectButton.tintColor = isCollected ? UIColor(hexString: "EB5757") : Theme.current.tint
                 collectButton.tintColor = Theme.current.tint
@@ -152,10 +153,18 @@ class CafeTableViewCell: UITableViewCell {
 //        delegate?.didClickCollectButton(sender, at: indexPath)
 
         if let cafe = cafe {
-            var isCollected = UserDefaults.standard.bool(forKey: cafe.id)
+            var isCollected = realmManager.isCafeCollected(cafe)
 
-            UserDefaults.standard.set(!isCollected, forKey: cafe.id)
-            UserDefaults.standard.synchronize()
+            if isCollected {
+                realmManager.removeFavoriteCafe(cafe)
+            } else {
+                realmManager.addFavoriteCafe(cafe)
+            }
+
+//            var isCollected = UserDefaults.standard.bool(forKey: cafe.id)
+//
+//            UserDefaults.standard.set(!isCollected, forKey: cafe.id)
+//            UserDefaults.standard.synchronize()
             isCollected = !isCollected
 
             sender.isSelected = isCollected
@@ -196,7 +205,7 @@ class CafeTableViewCell: UITableViewCell {
     func applyTheme() {
         self.backgroundColor = Theme.current.tableViewBackground
 
-        cardView.backgroundColor = Theme.current.accent
+        cardView.backgroundColor = Theme.current.cornerButton
         cardView.shadowColor = Theme.current.shadow
 
         nameLabel.textColor = Theme.current.tableViewCellDarkText

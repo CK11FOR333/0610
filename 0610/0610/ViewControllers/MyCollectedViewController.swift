@@ -56,21 +56,25 @@ class MyCollectedViewController: UIViewController {
     }
 
     @objc func getJSON() {
-        requestManager.getYilanCafe { [weak self] (cafes) in
-            guard let strongSelf = self else { return }
+        cafes = realmManager.getCafes()
+        tableView.reloadData()
 
-            var myCafes: [Cafe] = []
 
-            for cafe in cafes {
-                let isCollected = UserDefaults.standard.bool(forKey: cafe.id)
-                if isCollected {
-                    myCafes.append(cafe)
-                }
-            }
-
-            strongSelf.cafes = myCafes
-            strongSelf.tableView.reloadData()
-        }
+//        requestManager.getYilanCafe { [weak self] (cafes) in
+//            guard let strongSelf = self else { return }
+//
+//            var myCafes: [Cafe] = []
+//
+//            for cafe in cafes {
+//                let isCollected = UserDefaults.standard.bool(forKey: cafe.id)
+//                if isCollected {
+//                    myCafes.append(cafe)
+//                }
+//            }
+//
+//            strongSelf.cafes = myCafes
+//            strongSelf.tableView.reloadData()
+//        }
     }
 
     fileprivate func applyTheme() {
