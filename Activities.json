@@ -4,11 +4,6 @@
     "unSelectedTabBarColor": "BDBDBD",
     "list":
     [
-         {
-            "vc": "ViewController0",
-            "img": "tabbar_icon_shop_default",
-            "name": "工作咖啡廳"
-        },
         {
             "vc": "ViewController1",
             "img": "tabbar_icon_map_default",
