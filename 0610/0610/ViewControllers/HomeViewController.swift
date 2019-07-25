@@ -208,7 +208,7 @@ class HomeViewController: UIViewController {
     }
 
     func setupFilterButton() {
-        SortImageView.image = UIImage(named: "filter_list")?.withRenderingMode(.alwaysTemplate)
+        SortImageView.image = UIImage(named: "navbar_icon_sort_default")?.withRenderingMode(.alwaysTemplate)
         SortImageView.tintColor = Theme.current.tint
         SortView.backgroundColor = Theme.current.accent
         SortView.layer.cornerRadius = 30
