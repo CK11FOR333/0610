@@ -3,6 +3,7 @@
     "navImage": "",
     "tabBarTintColor": "FFFFFF",
     "tabBarColor": "00B156",
+    "unSelectedTabBarColor": "BDBDBD",
     "tableBackgroundColor": "BBBBBB",
     "list":
     [
