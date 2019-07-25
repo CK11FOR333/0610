@@ -1,6 +1,9 @@
 {
     "navBarColor": "FF9300",
     "navImage": "https://fpscdn.yam.com/world/201610/9c/92/580c3a14a9c92.jpg",
+    "tabBarTintColor": "FFFFFF",
+    "tabBarColor": "00B156",
+    "unSelectedTabBarColor": "BDBDBD",
     "tableBackgroundColor": "FF9300",
     "list":
     [
