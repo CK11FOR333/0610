@@ -6,18 +6,28 @@
     [
          {
             "vc": "ViewController0",
-            "img": "zhuce",
+            "img": "tabbar_icon_shop_default",
             "name": "工作咖啡廳"
         },
         {
             "vc": "ViewController1",
-            "img": "speaker",
+            "img": "tabbar_icon_map_default",
             "name": "地圖"
         },
         {
             "vc": "ViewController2",
-            "img": "heart",
+            "img": "tabbar_icon_mine_default",
             "name": "我的"
+        },
+        {
+            "vc": "ViewController3",
+            "img": "account_balance",
+            "name": "活動大廳"
+        },
+        {
+            "vc": "ViewController4",
+            "img": "calendar_view_day",
+            "name": "行事曆"
         }
     ]
 }
