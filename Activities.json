@@ -28,6 +28,11 @@
             "vc": "ViewController4",
             "img": "calendar_view_day",
             "name": "行事曆"
+        },
+        {
+            "vc": "ViewController5",
+            "img": "apps",
+            "name": "佈告欄"
         }
     ]
 }
