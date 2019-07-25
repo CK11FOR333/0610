@@ -1,6 +1,8 @@
 {
     "navBarColor": "00F900",
     "navImage": "",
+    "tabBarTintColor": "FFFFFF",
+    "tabBarColor": "00B156",
     "tableBackgroundColor": "BBBBBB",
     "list":
     [
