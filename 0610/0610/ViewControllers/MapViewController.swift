@@ -182,7 +182,7 @@ class MapViewController: UIViewController {
             self.applyTheme()
         }
         alertController.addAction(title: TaiwanCity.hsinchu.description, style: .default, isEnabled: true) { (action) in
-            self.city = TaiwanCity.hualien
+            self.city = TaiwanCity.hsinchu
             self.getCafes()
             self.applyTheme()
         }
@@ -241,8 +241,8 @@ class MapViewController: UIViewController {
             self.getCafes()
             self.applyTheme()
         }
-        alertController.addAction(title: TaiwanCity.ilan.description, style: .default, isEnabled: true) { (action) in
-            self.city = TaiwanCity.ilan
+        alertController.addAction(title: TaiwanCity.yilan.description, style: .default, isEnabled: true) { (action) in
+            self.city = TaiwanCity.yilan
             self.getCafes()
             self.applyTheme()
         }

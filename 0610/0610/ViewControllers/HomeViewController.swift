@@ -34,7 +34,7 @@ enum TaiwanCity: String {
     case pingtung   = "Pingtung"
     case taitung    = "Taitung"
     case hualien    = "Hualien"
-    case ilan       = "Ilan"
+    case yilan       = "Yilan"
     case penghu     = "Penghu"
     case lienchiang = "Lienchiang"
 }
@@ -72,7 +72,7 @@ extension TaiwanCity: CustomStringConvertible {
             return "台東"
         case .hualien:
             return "花蓮"
-        case .ilan:
+        case .yilan:
             return "宜蘭"
         case .penghu:
             return "澎湖"
@@ -315,8 +315,8 @@ class HomeViewController: UIViewController {
             self.city = TaiwanCity.hualien
             self.getCafes()
         }
-        alertController.addAction(title: TaiwanCity.ilan.description, style: .default, isEnabled: true) { (action) in
-            self.city = TaiwanCity.ilan
+        alertController.addAction(title: TaiwanCity.yilan.description, style: .default, isEnabled: true) { (action) in
+            self.city = TaiwanCity.yilan
             self.getCafes()
         }
         alertController.addAction(title: TaiwanCity.penghu.description, style: .default, isEnabled: true) { (action) in
@@ -366,10 +366,9 @@ class HomeViewController: UIViewController {
         }
 
         if UIDevice.current.userInterfaceIdiom == .pad {
-            alertController.popoverPresentationController?.barButtonItem = self.navigationItem.rightBarButtonItem
-            alertController.popoverPresentationController?.permittedArrowDirections = .up
-            alertController.popoverPresentationController?.sourceView = self.view
-            alertController.popoverPresentationController?.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
+            alertController.popoverPresentationController?.permittedArrowDirections = .down
+            alertController.popoverPresentationController?.sourceView = self.SortView
+            alertController.popoverPresentationController?.sourceRect = CGRect(x: 0, y: 0, width: self.SortView.frame.width, height: self.SortView.frame.height)
         }
 
         alertController.show()
