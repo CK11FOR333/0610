@@ -1,5 +1,8 @@
 {
     "navImage": "https://www.crazy-tutorial.com/wp-content/uploads/2018/06/%E5%B0%8F%E9%9B%9E%E5%9C%96-1200x628.jpg",
+    "tabBarTintColor": "FFFFFF",
+    "tabBarColor": "00B156",
+    "unSelectedTabBarColor": "BDBDBD",
     "list":
     [
         {
