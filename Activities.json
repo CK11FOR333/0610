@@ -15,21 +15,6 @@
             "vc": "ViewController2",
             "img": "tabbar_icon_mine_default",
             "name": "我的"
-        },
-        {
-            "vc": "ViewController3",
-            "img": "account_balance",
-            "name": "活動大廳"
-        },
-        {
-            "vc": "ViewController4",
-            "img": "calendar_view_day",
-            "name": "行事曆"
-        },
-        {
-            "vc": "ViewController5",
-            "img": "apps",
-            "name": "佈告欄"
-        }
+        }   
     ]
 }
