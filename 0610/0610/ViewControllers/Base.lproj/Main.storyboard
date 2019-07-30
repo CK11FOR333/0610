@@ -136,10 +136,10 @@
                                 <rect key="frame" x="240" y="488" width="60" height="60"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="filter_list" translatesAutoresizingMaskIntoConstraints="NO" id="qGO-BP-j6i">
-                                        <rect key="frame" x="15" y="15" width="30" height="30"/>
+                                        <rect key="frame" x="20" y="20" width="20" height="20"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="DeP-09-G5V"/>
-                                            <constraint firstAttribute="width" constant="30" id="UFh-Qg-v4B"/>
+                                            <constraint firstAttribute="height" constant="20" id="DeP-09-G5V"/>
+                                            <constraint firstAttribute="width" constant="20" id="UFh-Qg-v4B"/>
                                         </constraints>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ofC-bN-2iG">
@@ -276,6 +276,34 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FUu-y0-OgX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1354" y="1550"/>
+        </scene>
+        <!--Login View Controller-->
+        <scene sceneID="w30-11-pIo">
+            <objects>
+                <viewController storyboardIdentifier="LoginViewController" id="ibu-JP-n5n" customClass="LoginViewController" customModule="_610" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="64W-pN-xFJ">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="etK-s3-BHs">
+                                <rect key="frame" x="137" y="269" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="clickGoogleButton:" destination="ibu-JP-n5n" eventType="touchUpInside" id="fDT-EU-U5c"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="ddF-75-CfW"/>
+                    </view>
+                    <connections>
+                        <outlet property="googleButton" destination="etK-s3-BHs" id="yfV-YF-ep7"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UQp-aP-2bs" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1354" y="2263"/>
         </scene>
         <!--Settings View Controller-->
         <scene sceneID="Z4T-9D-Inh">

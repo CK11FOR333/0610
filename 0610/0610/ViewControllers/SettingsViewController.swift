@@ -87,7 +87,7 @@ extension SettingsViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        return 5
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -133,6 +133,14 @@ extension SettingsViewController: UITableViewDataSource {
             cell.backgroundColor = Theme.current.tableViewCellBackgorund
             cell.selectedBackgroundView = selectedBackgroundView
             return cell
+        case 4:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+            cell.accessoryType = .disclosureIndicator
+            cell.textLabel?.text = "登入"
+            cell.textLabel?.textColor = Theme.current.tableViewCellLightText
+            cell.backgroundColor = Theme.current.tableViewCellBackgorund
+            cell.selectedBackgroundView = selectedBackgroundView
+            return cell
         default:
             assertionFailure("no match cell with type")
         }
@@ -170,6 +178,9 @@ extension SettingsViewController: UITableViewDelegate {
                     UIApplication.shared.openURL(url)
                 }
             }
+        case 4:
+            let loginVC = UIStoryboard.main?.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+            navigationController?.pushViewController(loginVC)
         default:
             break
         }

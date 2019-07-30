@@ -10,6 +10,9 @@ import UIKit
 import Fabric
 import Crashlytics
 import SwiftyBeaver
+import Firebase
+import FirebaseAuth
+import GoogleSignIn
 
 let log = SwiftyBeaver.self
 
@@ -24,6 +27,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         setupFabric()
         setupSwiftyBeaver()
+        setupFirebase()
+        setupGoogleSignIn()
         applyTheme()
         return true
     }
@@ -48,6 +53,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    }
+
+}
+
+extension AppDelegate {
+
+    @available(iOS 9.0, *)
+    func application(_ application: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any]) -> Bool {
+            return GIDSignIn.sharedInstance().handle(url,
+                                                     sourceApplication:options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String,
+                                                     annotation: [:])
     }
 
 }
@@ -84,6 +100,10 @@ extension AppDelegate {
         log.addDestination(cloud)
     }
 
+    func setupFirebase() {
+        FirebaseApp.configure()
+    }
+
     func applyTheme() {
         if UserDefaults.standard.object(forKey: "kIsDarkTheme") == nil {
             UserDefaults.standard.set(false, forKey: "kIsDarkTheme")
@@ -91,6 +111,46 @@ extension AppDelegate {
         } else {
             Theme.current = UserDefaults.standard.bool(forKey: "kIsDarkTheme") ? DarkTheme() : LightTheme()
         }
+    }
+
+}
+
+// MARK: - Google Sign In
+
+extension AppDelegate: GIDSignInDelegate {
+
+    func setupGoogleSignIn() {
+        GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
+        GIDSignIn.sharedInstance().delegate = self
+    }
+
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+        // ...
+        if let error = error {
+            // ...
+            log.error("GIDSignIn Error: \(error.localizedDescription)")
+            return
+        }
+
+        guard let authentication = user.authentication else { return }
+        let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,
+                                                       accessToken: authentication.accessToken)
+        // ...
+        Auth.auth().signIn(with: credential) { (authResult, error) in
+            if let error = error {
+                //
+                log.error("Auth Login Error: \(error.localizedDescription)")
+                return
+            }
+            // User is signed in
+            // ...
+            log.info("Login Success")
+        }
+    }
+
+    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
+        // Perform any operations when the user disconnects from app here.
+        // ...
     }
 
 }

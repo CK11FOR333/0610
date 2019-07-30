@@ -481,6 +481,8 @@ extension MIxViewController: UITableViewDataSource {
                 images.append(content.textImage!)
             }
             cell.bannerView.imagePaths = images
+            cell.bannerView.delegate = self
+            cell.bannerView.tag = indexPath.section
 
             cell.marqueelTitleLabel.text = (content as! TypeOne).title
             cell.marqueelTitleLabel.textColor = UIColor(hexString: (content as! TypeOne).titleColor)
@@ -731,4 +733,21 @@ extension MIxViewController: ImageTableViewCellDelegate {
         }
     }
 
+}
+
+extension MIxViewController: LLCycleScrollViewDelegate {
+
+    func cycleScrollView(_ cycleScrollView: LLCycleScrollView, didSelectItemIndex index: NSInteger) {
+        let content = cellModels[cycleScrollView.tag]
+
+        if let textWeb = (content as! TypeOne).contents[index].textWeb, let url = URL(string: textWeb) {
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            } else {
+                // Fallback on earlier versions
+                UIApplication.shared.openURL(url)
+            }
+        }
+    }
+    
 }
