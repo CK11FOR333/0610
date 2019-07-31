@@ -128,7 +128,7 @@ extension AppDelegate: GIDSignInDelegate {
         // ...
         if let error = error {
             // ...
-            log.error("GIDSignIn Error: \(error.localizedDescription)")
+            log.error("Google Sign In Error: \(error.localizedDescription)")
             return
         }
 
@@ -139,18 +139,33 @@ extension AppDelegate: GIDSignInDelegate {
         Auth.auth().signIn(with: credential) { (authResult, error) in
             if let error = error {
                 //
-                log.error("Auth Login Error: \(error.localizedDescription)")
+                log.error("Auth Sign In Error: \(error.localizedDescription)")
                 return
             }
             // User is signed in
             // ...
-            log.info("Login Success")
+            log.info("Signing In Succeed")
         }
     }
 
     func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
         // Perform any operations when the user disconnects from app here.
         // ...
+        // ...
+        if let error = error {
+            // ...
+            log.error("Signing Out Error: \(error.localizedDescription)")
+            return
+        }
+
+        let firebaseAuth = Auth.auth()
+        do {
+            try firebaseAuth.signOut()
+            log.info("Signing Out Succeed")
+        } catch let signOutError as NSError {
+            log.debug("Error signing out: \(signOutError.localizedDescription)")
+        }
+
     }
 
 }

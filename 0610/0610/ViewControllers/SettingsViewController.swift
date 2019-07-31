@@ -8,12 +8,18 @@
 
 import UIKit
 import MessageUI
+import Firebase
+import FirebaseAuth
 
 class SettingsViewController: UIViewController {
 
     var vcType: MyViewControllerType!
 
     let selectedBackgroundView = UIView()
+
+    var authHandle: AuthStateDidChangeListenerHandle?
+
+    var loginTitle: String = "登入"
 
     @IBOutlet weak var tableView: UITableView!
 
@@ -22,6 +28,24 @@ class SettingsViewController: UIViewController {
         setupNavigationBar()
         setupTableView()
 
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        authHandle = Auth.auth().addStateDidChangeListener { [weak self] (auth, user) in
+            guard let strongSelf = self else { return }
+            // ...
+            if user != nil {
+                strongSelf.loginTitle = "登出"
+            } else {
+                strongSelf.loginTitle = "登入"
+            }
+        }
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        Auth.auth().removeStateDidChangeListener(authHandle!)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -136,7 +160,7 @@ extension SettingsViewController: UITableViewDataSource {
         case 4:
             let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
             cell.accessoryType = .disclosureIndicator
-            cell.textLabel?.text = "登入"
+            cell.textLabel?.text = loginTitle
             cell.textLabel?.textColor = Theme.current.tableViewCellLightText
             cell.backgroundColor = Theme.current.tableViewCellBackgorund
             cell.selectedBackgroundView = selectedBackgroundView
