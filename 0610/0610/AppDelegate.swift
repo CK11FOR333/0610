@@ -122,50 +122,43 @@ extension AppDelegate: GIDSignInDelegate {
     func setupGoogleSignIn() {
         GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
         GIDSignIn.sharedInstance().delegate = self
+
+        if loginManager.isLogin && loginManager.accountProvider == "google" {
+            loginManager.signInSilently = true
+            GIDSignIn.sharedInstance().signInSilently()
+        }
     }
 
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
         // ...
         if let error = error {
-            // ...
             log.error("Google Sign In Error: \(error.localizedDescription)")
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "AuthLogin"), object: nil, userInfo: ["Error": "\(error.localizedDescription)"])
             return
         }
 
-        guard let authentication = user.authentication else { return }
+        guard let authentication = user.authentication else {
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "AuthLogin"), object: nil, userInfo: ["Error": "authentication error"])
+            return
+        }
+
+        loginManager.accountProvider = "google"
+
+        log.info("Google Sign in Succeed")
         let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,
                                                        accessToken: authentication.accessToken)
-        // ...
-        Auth.auth().signIn(with: credential) { (authResult, error) in
-            if let error = error {
-                //
-                log.error("Auth Sign In Error: \(error.localizedDescription)")
-                return
-            }
-            // User is signed in
-            // ...
-            log.info("Signing In Succeed")
-        }
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "AuthLogin"), object: nil, userInfo: ["credential": credential])
     }
 
     func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
         // Perform any operations when the user disconnects from app here.
-        // ...
-        // ...
         if let error = error {
-            // ...
             log.error("Signing Out Error: \(error.localizedDescription)")
             return
         }
 
-        let firebaseAuth = Auth.auth()
-        do {
-            try firebaseAuth.signOut()
-            log.info("Signing Out Succeed")
-        } catch let signOutError as NSError {
-            log.debug("Error signing out: \(signOutError.localizedDescription)")
-        }
-
+        //
+        log.info("Google Signing Out Succeed")
     }
 
 }

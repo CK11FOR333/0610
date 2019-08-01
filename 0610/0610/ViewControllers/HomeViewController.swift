@@ -8,6 +8,8 @@
 
 import UIKit
 import SwiftyJSON
+import Firebase
+import FirebaseAuth
 
 enum CafeRatingType {
     case wifi
@@ -95,6 +97,9 @@ class HomeViewController: UIViewController {
     var refreshControl: UIRefreshControl!
     var searchController: UISearchController!
 
+    var authHandle: AuthStateDidChangeListenerHandle?
+    var isLogin: Bool = false
+
     @IBOutlet weak var tableView: UITableView!
 
     @IBOutlet weak var SortView: UIView!
@@ -115,10 +120,6 @@ class HomeViewController: UIViewController {
         getCafes()
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-    }
-
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         applyTheme()
@@ -136,7 +137,10 @@ class HomeViewController: UIViewController {
         navigationController?.navigationBar.tintColor = Theme.current.tint
         navigationController?.navigationBar.isTranslucent = false
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: Theme.current.tint]
+
+
         if #available(iOS 11.0, *) {
+            self.navigationController?.navigationBar.prefersLargeTitles = true
             navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: Theme.current.tint]
         } else {
             // Fallback on earlier versions
@@ -175,6 +179,7 @@ class HomeViewController: UIViewController {
     }
 
     func setupNavigationBar() {
+
         navigationItem.title = city.description
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "navbar_icon_filter_default"), style: .plain, target: self, action: #selector(showFilterActions))
 
@@ -460,7 +465,7 @@ extension HomeViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CafeTableViewCell", for: indexPath) as! CafeTableViewCell
         cell.selectionStyle = .none
 
-//        cell.delegate = self
+        cell.delegate = self
 
         cell.indexPath = indexPath
 
@@ -506,32 +511,44 @@ extension HomeViewController: UITableViewDelegate {
     }
 
 }
-//
-//extension HomeViewController: CafeTableViewCellDelegate {
-//
-//    func didClickCollectButton(_ sender: UIButton, at indexPath: IndexPath) {
-//        var cafe: Cafe
-//        if searchController.isActive {
-//            cafe = searchResult[indexPath.row]
-//        } else {
-//            cafe = cafes[indexPath.row]
-//        }
-//
-//        var isCollected = UserDefaults.standard.bool(forKey: cafe.id)
-//        if isCollected {
-//            UserDefaults.standard.set(false, forKey: cafe.id)
-//            isCollected = false
-//        } else {
-//            UserDefaults.standard.set(true, forKey: cafe.id)
-//            isCollected = true
-//        }
-//        UserDefaults.standard.synchronize()
-////        tableView.reloadRows(at: [indexPath], with: .automatic)
-////        sender.tintColor = Theme.current.fullStar
-//        sender.isSelected = isCollected
-//    }
-//
-//}
+
+extension HomeViewController: CafeTableViewCellDelegate {
+
+    func didClickCollectButton(_ sender: UIButton, at indexPath: IndexPath) {
+        var cafe: Cafe
+        if searchController.isActive {
+            cafe = searchResult[indexPath.row]
+        } else {
+            cafe = cafes[indexPath.row]
+        }
+
+        if loginManager.isLogin {
+            var isCollected = realmManager.isCafeCollected(cafe)
+
+            if isCollected {
+                realmManager.removeFavoriteCafe(cafe)
+            } else {
+                realmManager.addFavoriteCafe(cafe)
+            }
+
+            isCollected = !isCollected
+
+            sender.isSelected = isCollected
+            if isCollected {
+                sender.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
+                UIView.animate(withDuration: 1.5, delay: 0, usingSpringWithDamping: 0.2, initialSpringVelocity: 6.0, options: .allowUserInteraction, animations: {
+                    sender.transform = .identity
+                }, completion: nil)
+            }
+        } else {
+            appDelegate.presentAlertView("登入以使用收藏功能", message: nil) {
+                let loginVC = UIStoryboard.main?.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+                self.navigationController?.pushViewController(loginVC)
+            }
+        }
+    }
+
+}
 
 extension HomeViewController: UISearchResultsUpdating {
 

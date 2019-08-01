@@ -14,151 +14,122 @@ import SVProgressHUD
 
 class LoginViewController: UIViewController {
 
-
-    @IBOutlet weak var googleButton: GIDSignInButton!
-
-    @IBOutlet weak var logoutButton: UIButton!
-
     @IBOutlet weak var emailTextField: UITextField!
 
     @IBOutlet weak var passwordTextField: UITextField!
 
+    @IBOutlet weak var logInButton: UIButton!
 
+    @IBOutlet weak var signUpButton: UIButton!
 
+    @IBOutlet weak var googleButton: GIDSignInButton!
 
+    @IBOutlet weak var googleButtonView: UIView!
 
     @IBAction func clickGoogleButton(_ sender: UIButton) {
-        GIDSignIn.sharedInstance().uiDelegate = self
-        GIDSignIn.sharedInstance().signIn()
+        loginManager.delegate = self
+        loginManager.loginGoogle()
     }
-
-    @IBAction func clickLogOutButton(_ sender: UIButton) {
-        GIDSignIn.sharedInstance().signOut()
-        GIDSignIn.sharedInstance().disconnect()
-    }
-
 
     @IBAction func clickSignUpButton(_ sender: UIButton) {
         if emailTextField.text == "" {
-            let alertController = UIAlertController(title: "Error", message: "Please enter your email and password", preferredStyle: .alert)
-
-            let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-            alertController.addAction(defaultAction)
-
-            present(alertController, animated: true, completion: nil)
-
+            showEmailAndPasswordError()
         } else {
-            Auth.auth().createUser(withEmail: emailTextField.text!, password: passwordTextField.text!) { [weak self] authResult, error in
-                guard let strongSelf = self else { return }
-                // ...
-                if error == nil {
-                    log.info("You have successfully signed up")
-                    //Goes to the Setup page which lets the user take a photo for their profile picture and also chose a username
-
-                    let alertController = UIAlertController(title: "Sign Up Succedd", message: error?.localizedDescription, preferredStyle: .alert)
-
-                    let defaultAction = UIAlertAction(title: "OK", style: .default, handler: { (action) in
-                        strongSelf.navigationController?.popViewController()
-                    })
-                    alertController.addAction(defaultAction)
-
-                    strongSelf.present(alertController, animated: true, completion: nil)                    
-
-                } else {
-                    let alertController = UIAlertController(title: "Error", message: error?.localizedDescription, preferredStyle: .alert)
-
-                    let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-                    alertController.addAction(defaultAction)
-
-                    strongSelf.present(alertController, animated: true, completion: nil)
-                }
-            }
+            loginManager.delegate = self
+            loginManager.signUp(with: emailTextField.text!, password: passwordTextField.text!)
         }
     }
 
     @IBAction func clickSignInButton(_ sender: UIButton) {
         if emailTextField.text == "" {
-            let alertController = UIAlertController(title: "Error", message: "Please enter your email and password", preferredStyle: .alert)
-
-            let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-            alertController.addAction(defaultAction)
-
-            present(alertController, animated: true, completion: nil)
-
+            showEmailAndPasswordError()
         } else {
-            Auth.auth().signIn(withEmail: emailTextField.text!, password: passwordTextField.text!) { [weak self] authResult, error in
-                guard let strongSelf = self else { return }
-                // ...
-                if error == nil {
-                    if let user = authResult?.user {
-
-                        log.info("Sign In", context: nil)
-
-                        // The user's ID, unique to the Firebase project.
-                        // Do NOT use this value to authenticate with your backend server,
-                        // if you have one. Use getTokenWithCompletion:completion: instead.
-                        let uid = user.uid
-                        let email = user.email
-                        let photoURL = user.photoURL
-                        // ...
-
-                        let alertController = UIAlertController(title: "Sign In Succedd", message: error?.localizedDescription, preferredStyle: .alert)
-
-                        let defaultAction = UIAlertAction(title: "OK", style: .default, handler: { (action) in
-                            strongSelf.navigationController?.popViewController()
-                        })
-                        alertController.addAction(defaultAction)
-
-                        strongSelf.present(alertController, animated: true, completion: nil)
-
-                    }
-                } else {
-                    log.debug("Sing In Error \(error!.localizedDescription)")
-                    let alertController = UIAlertController(title: "Error", message: error?.localizedDescription, preferredStyle: .alert)
-
-                    let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-                    alertController.addAction(defaultAction)
-
-                    strongSelf.present(alertController, animated: true, completion: nil)
-                }
-            }
+            loginManager.delegate = self
+            loginManager.login(with: emailTextField.text!, password: passwordTextField.text!)
         }
-
     }
-
-
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        prepareButtons()
+        if #available(iOS 11.0, *) {
+            self.navigationController?.navigationBar.prefersLargeTitles = false
+        } else {
+            // Fallback on earlier versions
+        }
+        emailTextField.becomeFirstResponder()
+    }
+
+    func prepareButtons() {
+        logInButton.cornerRadius = 20
+//        logInButton.clipsToBounds = true
+        googleButtonView.cornerRadius = 20
+//        googleButton.clipsToBounds = true
+    }
+
+    func showEmailAndPasswordError() {
+        let alertController = UIAlertController(title: "Error", message: "Please enter your email and password", preferredStyle: .alert)
+
+        let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        alertController.addAction(defaultAction)
+
+        present(alertController, animated: true, completion: nil)
     }
 
 }
 
-// MARK: - GIDSignIn UI Delegate
+extension LoginViewController: LoginManagerDelegate {
 
-extension LoginViewController: GIDSignInUIDelegate {
+    func signUpSuccess() {
+        let alertController = UIAlertController(title: "註冊成功", message: nil, preferredStyle: .alert)
 
-    func sign(inWillDispatch signIn: GIDSignIn!, error: Error!) {
-        log.info("")
-//        SVProgressHUD.show()
+        let defaultAction = UIAlertAction(title: "確定", style: .default, handler: { (action) in
+            self.navigationController?.popViewController()
+        })
+        alertController.addAction(defaultAction)
+
+        self.present(alertController, animated: true, completion: nil)
     }
 
-    func sign(_ signIn: GIDSignIn!, present viewController: UIViewController!) {
-        log.info("")
-        if let visibleViewController = appDelegate.window?.visibleViewController {
-            visibleViewController.present(viewController, animated: true, completion: {
-                log.info("present")
-            })
-        }
+    func signUpFail(with errorString: String) {
+        let alertController = UIAlertController(title: "註冊失敗", message: errorString, preferredStyle: .alert)
+
+        let defaultAction = UIAlertAction(title: "確定", style: .cancel, handler: nil)
+        alertController.addAction(defaultAction)
+
+        self.present(alertController, animated: true, completion: nil)
     }
 
-    func sign(_ signIn: GIDSignIn!, dismiss viewController: UIViewController!) {
-        log.info("")
-        if let visibleViewController = appDelegate.window?.visibleViewController {
-            visibleViewController.dismiss(animated: true, completion: {
-                log.info("dismiss")
-            })
-        }
+    func loginSuccess() {
+        let alertController = UIAlertController(title: "登入成功", message: nil, preferredStyle: .alert)
+
+        let defaultAction = UIAlertAction(title: "確定", style: .default, handler: { (action) in
+            self.navigationController?.popViewController()
+        })
+        alertController.addAction(defaultAction)
+
+        self.present(alertController, animated: true, completion: nil)
+    }
+
+    func loginFail(with errorString: String) {
+        let alertController = UIAlertController(title: "登入失敗", message: errorString, preferredStyle: .alert)
+
+        let defaultAction = UIAlertAction(title: "確定", style: .cancel, handler: nil)
+        alertController.addAction(defaultAction)
+
+        self.present(alertController, animated: true, completion: nil)
+    }
+
+    func loginCancel() {
+        //
+    }
+
+    func logoutSuccess() {
+        //
+    }
+
+    func logoutFail(with errorString: String) {
+        //
     }
 
 }

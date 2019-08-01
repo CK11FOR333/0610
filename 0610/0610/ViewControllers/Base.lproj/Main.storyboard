@@ -286,13 +286,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WaP-1A-jbG">
-                                <rect key="frame" x="20" y="90" width="280" height="30"/>
+                                <rect key="frame" x="20" y="80" width="280" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zgb-fT-pFZ">
-                                <rect key="frame" x="50" y="140" width="220" height="40"/>
+                                <rect key="frame" x="50" y="130" width="220" height="40"/>
                                 <color key="backgroundColor" red="0.45882352941176469" green="0.36078431372549019" blue="0.28627450980392155" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="DoE-mR-m4M"/>
@@ -300,6 +300,9 @@
                                 <state key="normal" title="登入">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="clickSignInButton:" destination="ibu-JP-n5n" eventType="touchUpInside" id="gf1-gz-00k"/>
+                                </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="u7p-Ow-bB0">
                                 <rect key="frame" x="20" y="40" width="280" height="30"/>
@@ -308,7 +311,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lI3-VU-j8P">
-                                <rect key="frame" x="50" y="225" width="220" height="40"/>
+                                <rect key="frame" x="50" y="215" width="220" height="40"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="GoogleSignIn" translatesAutoresizingMaskIntoConstraints="NO" id="Xx7-f0-kE1">
                                         <rect key="frame" x="8" y="7.5" width="25" height="25"/>
@@ -317,25 +320,34 @@
                                             <constraint firstAttribute="height" constant="25" id="YfP-5e-JRi"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Google 帳號登入" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xG4-T5-7id">
-                                        <rect key="frame" x="45" y="9.5" width="167" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Google 帳號登入" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xG4-T5-7id">
+                                        <rect key="frame" x="46" y="9.5" width="128.5" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bvz-Sg-usJ">
+                                        <rect key="frame" x="0.0" y="0.0" width="220" height="40"/>
+                                        <connections>
+                                            <action selector="clickGoogleButton:" destination="ibu-JP-n5n" eventType="touchUpInside" id="Jig-Se-Bgk"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="xG4-T5-7id" secondAttribute="trailing" constant="8" id="6la-L0-lYg"/>
-                                    <constraint firstItem="xG4-T5-7id" firstAttribute="leading" secondItem="Xx7-f0-kE1" secondAttribute="trailing" constant="12" id="G0E-Ks-Yw1"/>
+                                    <constraint firstAttribute="bottom" secondItem="Bvz-Sg-usJ" secondAttribute="bottom" id="Cq5-n7-z7X"/>
+                                    <constraint firstItem="Bvz-Sg-usJ" firstAttribute="top" secondItem="lI3-VU-j8P" secondAttribute="top" id="M0n-kp-YbT"/>
+                                    <constraint firstAttribute="trailing" secondItem="Bvz-Sg-usJ" secondAttribute="trailing" id="Nwf-Dj-aKi"/>
                                     <constraint firstAttribute="height" constant="40" id="VNP-Gz-f8R"/>
+                                    <constraint firstItem="Bvz-Sg-usJ" firstAttribute="leading" secondItem="lI3-VU-j8P" secondAttribute="leading" id="eFl-tm-qIz"/>
                                     <constraint firstItem="xG4-T5-7id" firstAttribute="centerY" secondItem="lI3-VU-j8P" secondAttribute="centerY" id="eoR-7v-c4q"/>
                                     <constraint firstItem="Xx7-f0-kE1" firstAttribute="centerY" secondItem="lI3-VU-j8P" secondAttribute="centerY" id="gUJ-2o-Cj7"/>
+                                    <constraint firstItem="xG4-T5-7id" firstAttribute="centerX" secondItem="lI3-VU-j8P" secondAttribute="centerX" id="j4d-ou-Dv1"/>
                                     <constraint firstItem="Xx7-f0-kE1" firstAttribute="leading" secondItem="lI3-VU-j8P" secondAttribute="leading" constant="8" id="qvp-a5-thp"/>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iEw-GA-x4m">
-                                <rect key="frame" x="135" y="180" width="50" height="35"/>
+                                <rect key="frame" x="135" y="170" width="50" height="35"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="EDC-ZF-IOt"/>
                                     <constraint firstAttribute="width" constant="50" id="YvR-ks-OVQ"/>
@@ -343,6 +355,9 @@
                                 <state key="normal" title="註冊">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="clickSignUpButton:" destination="ibu-JP-n5n" eventType="touchUpInside" id="Xy5-J6-AEe"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.13725490196078433" green="0.75294117647058822" blue="0.68235294117647061" alpha="1" colorSpace="calibratedRGB"/>
@@ -350,7 +365,7 @@
                             <constraint firstItem="Zgb-fT-pFZ" firstAttribute="top" secondItem="WaP-1A-jbG" secondAttribute="bottom" constant="20" id="Df5-ob-Nub"/>
                             <constraint firstItem="lI3-VU-j8P" firstAttribute="leading" secondItem="ddF-75-CfW" secondAttribute="leading" constant="50" id="EZx-en-zHK"/>
                             <constraint firstItem="ddF-75-CfW" firstAttribute="trailing" secondItem="WaP-1A-jbG" secondAttribute="trailing" constant="20" id="ErT-VK-rOm"/>
-                            <constraint firstItem="WaP-1A-jbG" firstAttribute="top" secondItem="u7p-Ow-bB0" secondAttribute="bottom" constant="20" id="GwI-ve-gum"/>
+                            <constraint firstItem="WaP-1A-jbG" firstAttribute="top" secondItem="u7p-Ow-bB0" secondAttribute="bottom" constant="10" id="GwI-ve-gum"/>
                             <constraint firstItem="iEw-GA-x4m" firstAttribute="top" secondItem="Zgb-fT-pFZ" secondAttribute="bottom" id="JUy-37-hNh"/>
                             <constraint firstItem="u7p-Ow-bB0" firstAttribute="leading" secondItem="ddF-75-CfW" secondAttribute="leading" constant="20" id="Jaq-F3-hvn"/>
                             <constraint firstItem="ddF-75-CfW" firstAttribute="trailing" secondItem="u7p-Ow-bB0" secondAttribute="trailing" constant="20" id="P3F-Ya-sIS"/>
@@ -368,7 +383,11 @@
                     </view>
                     <connections>
                         <outlet property="emailTextField" destination="u7p-Ow-bB0" id="700-nM-3MP"/>
+                        <outlet property="googleButton" destination="Bvz-Sg-usJ" id="Cs5-bZ-5dQ"/>
+                        <outlet property="googleButtonView" destination="lI3-VU-j8P" id="SRg-0u-N1u"/>
+                        <outlet property="logInButton" destination="Zgb-fT-pFZ" id="iCr-gr-3aj"/>
                         <outlet property="passwordTextField" destination="WaP-1A-jbG" id="a5A-Tg-n4Y"/>
+                        <outlet property="signUpButton" destination="iEw-GA-x4m" id="qlG-6s-MtO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UQp-aP-2bs" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -420,12 +439,28 @@
                                             <outlet property="titleLabel" destination="DfJ-01-O4c" id="ISc-uJ-kDj"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="qpk-Dx-ZfD">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" textLabel="iET-hc-5Nk" detailTextLabel="DAh-dj-ZXX" style="IBUITableViewCellStyleValue1" id="qpk-Dx-ZfD">
                                         <rect key="frame" x="0.0" y="99.5" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="qpk-Dx-ZfD" id="y41-Ky-AMF">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="287" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="iET-hc-5Nk">
+                                                    <rect key="frame" x="15" y="12" width="33.5" height="20.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="DAh-dj-ZXX">
+                                                    <rect key="frame" x="241" y="12" width="44" height="20.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>

@@ -60,6 +60,13 @@ final class RealmManager {
         }
     }
 
+    func removeAllCafes() {
+        let cafeRealms = realm.objects(CafeRealm.self)        
+        try! realm.write {
+            realm.delete(cafeRealms)
+        }
+    }
+
     func isCafeCollected(_ cafe: Cafe) -> Bool {
         if realm.object(ofType: CafeRealm.self, forPrimaryKey: cafe.id) != nil {
             return true

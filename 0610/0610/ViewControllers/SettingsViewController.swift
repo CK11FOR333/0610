@@ -8,16 +8,12 @@
 
 import UIKit
 import MessageUI
-import Firebase
-import FirebaseAuth
 
 class SettingsViewController: UIViewController {
 
     var vcType: MyViewControllerType!
 
     let selectedBackgroundView = UIView()
-
-    var authHandle: AuthStateDidChangeListenerHandle?
 
     var loginTitle: String = "登入"
 
@@ -27,25 +23,21 @@ class SettingsViewController: UIViewController {
         super.viewDidLoad()
         setupNavigationBar()
         setupTableView()
-
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        authHandle = Auth.auth().addStateDidChangeListener { [weak self] (auth, user) in
-            guard let strongSelf = self else { return }
-            // ...
-            if user != nil {
-                strongSelf.loginTitle = "登出"
-            } else {
-                strongSelf.loginTitle = "登入"
-            }
+        if loginManager.isLogin {
+            loginTitle = "登出"
+            tableView.reloadData()
+        } else {
+            loginTitle = "登入"
+            tableView.reloadData()
         }
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        Auth.auth().removeStateDidChangeListener(authHandle!)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -107,106 +99,177 @@ class SettingsViewController: UIViewController {
 extension SettingsViewController: UITableViewDataSource {
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return 3
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        if section == 0 {
+            return 1
+        } else if section == 1 {
+            return 5
+        } else {
+            return 1
+        }
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch indexPath.row {
-        case 0:
+        if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
             cell.accessoryType = .disclosureIndicator
             cell.textLabel?.text = "我的收藏"
             cell.textLabel?.textColor = Theme.current.tableViewCellLightText
+            cell.detailTextLabel?.text = nil
             cell.backgroundColor = Theme.current.tableViewCellBackgorund
             cell.selectedBackgroundView = selectedBackgroundView
 
             return cell
-        case 1:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "SwitchTableViewCell", for: indexPath) as! SwitchTableViewCell
-            
-            cell.titleLabel.text = "夜間模式"
-            cell.delegate = self
+        } else if indexPath.section == 1 {
+            switch indexPath.row {
+            case 0:
+                let cell = tableView.dequeueReusableCell(withIdentifier: "SwitchTableViewCell", for: indexPath) as! SwitchTableViewCell
 
-            if UserDefaults.standard.bool(forKey: "kIsDarkTheme") {
-                cell.switch.setOn(true, animated: false)
-            } else {
-                cell.switch.setOn(false, animated: false)
+                cell.titleLabel.text = "夜間模式"
+                cell.delegate = self
+
+                if UserDefaults.standard.bool(forKey: "kIsDarkTheme") {
+                    cell.switch.setOn(true, animated: false)
+                } else {
+                    cell.switch.setOn(false, animated: false)
+                }
+
+                cell.backgroundColor = Theme.current.tableViewCellBackgorund
+                //            cell.selectedBackgroundView = selectedBackgroundView
+                cell.selectionStyle = .none
+                return cell
+            case 1:
+                let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+                cell.accessoryType = .disclosureIndicator
+                cell.textLabel?.text = "回報問題"
+                cell.textLabel?.textColor = Theme.current.tableViewCellLightText
+                cell.detailTextLabel?.text = nil
+                cell.backgroundColor = Theme.current.tableViewCellBackgorund
+                cell.selectedBackgroundView = selectedBackgroundView
+                return cell
+            case 2:
+                let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+                cell.accessoryType = .disclosureIndicator
+                cell.textLabel?.text = "隱私權政策"
+                cell.textLabel?.textColor = Theme.current.tableViewCellLightText
+                cell.detailTextLabel?.text = nil
+                cell.backgroundColor = Theme.current.tableViewCellBackgorund
+                cell.selectedBackgroundView = selectedBackgroundView
+                return cell
+            case 3:
+                let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+                cell.accessoryType = .disclosureIndicator
+                cell.textLabel?.text = "資料來源"
+                cell.textLabel?.textColor = Theme.current.tableViewCellLightText
+                cell.detailTextLabel?.text = "Cafe Nomad 工作咖啡廳"
+                cell.detailTextLabel?.textColor = Theme.current.tableViewCellLightText
+                cell.backgroundColor = Theme.current.tableViewCellBackgorund
+                cell.selectedBackgroundView = selectedBackgroundView
+                return cell
+            case 4:
+                let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+                cell.accessoryType = .disclosureIndicator
+                cell.textLabel?.text = "關於"
+                cell.textLabel?.textColor = Theme.current.tableViewCellLightText
+                cell.detailTextLabel?.text = nil
+                cell.backgroundColor = Theme.current.tableViewCellBackgorund
+                cell.selectedBackgroundView = selectedBackgroundView
+                return cell
+            default:
+                assertionFailure("no match cell with type")
             }
 
-            cell.backgroundColor = Theme.current.tableViewCellBackgorund
-//            cell.selectedBackgroundView = selectedBackgroundView
-            cell.selectionStyle = .none
+            let cell = UITableViewCell()
             return cell
-        case 2:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-            cell.accessoryType = .disclosureIndicator
-            cell.textLabel?.text = "回報問題"
-            cell.textLabel?.textColor = Theme.current.tableViewCellLightText
-            cell.backgroundColor = Theme.current.tableViewCellBackgorund
-            cell.selectedBackgroundView = selectedBackgroundView
-            return cell
-        case 3:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-            cell.accessoryType = .disclosureIndicator
-            cell.textLabel?.text = "隱私權政策"
-            cell.textLabel?.textColor = Theme.current.tableViewCellLightText
-            cell.backgroundColor = Theme.current.tableViewCellBackgorund
-            cell.selectedBackgroundView = selectedBackgroundView
-            return cell
-        case 4:
+        } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
             cell.accessoryType = .disclosureIndicator
             cell.textLabel?.text = loginTitle
             cell.textLabel?.textColor = Theme.current.tableViewCellLightText
+            cell.detailTextLabel?.text = nil
             cell.backgroundColor = Theme.current.tableViewCellBackgorund
             cell.selectedBackgroundView = selectedBackgroundView
             return cell
-        default:
-            assertionFailure("no match cell with type")
         }
-
-        let cell = UITableViewCell()
-        return cell
-    }
-
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return nil
-    }
-
-    func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        return "version \(appVersionString)(\(appBuildString))"
     }
 
 }
 
 extension SettingsViewController: UITableViewDelegate {
 
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if section == 0 {
+            return "我的"
+        } else if section == 1 {
+            return "其他"
+        } else {
+            return nil
+        }
+    }
+
+    func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        if section == 2 {
+            return "version \(appVersionString)(\(appBuildString))"
+        } else {
+            return nil
+        }
+    }
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
 
-        switch indexPath.row {
-        case 0:
-            let myCollectedVC = UIStoryboard.main?.instantiateViewController(withIdentifier: "MyCollectedViewController") as! MyCollectedViewController
-            navigationController?.pushViewController(myCollectedVC)
-        case 2:
-            presentContactUsPage()
-        case 3:
-            if let url = URL(string: "https://www.privacypolicies.com/privacy/view/5f37b29dd9364d9066545b6a7c4bceb8") {
-                if #available(iOS 10, *) {
-                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
-                } else {
-                    UIApplication.shared.openURL(url)
+        if indexPath.section == 0 {
+            if loginManager.isLogin {
+                let myCollectedVC = UIStoryboard.main?.instantiateViewController(withIdentifier: "MyCollectedViewController") as! MyCollectedViewController
+                navigationController?.pushViewController(myCollectedVC)
+            } else {
+                appDelegate.presentAlertView("登入以使用收藏功能", message: nil) {
+                    let loginVC = UIStoryboard.main?.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+                    self.navigationController?.pushViewController(loginVC)
                 }
             }
-        case 4:
-            let loginVC = UIStoryboard.main?.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
-            navigationController?.pushViewController(loginVC)
-        default:
-            break
+        } else if indexPath.section == 1 {
+            switch indexPath.row {
+            case 1:
+                presentContactUsPage()
+            case 2:
+                if let url = URL(string: "https://www.privacypolicies.com/privacy/view/5f37b29dd9364d9066545b6a7c4bceb8") {
+                    if #available(iOS 10, *) {
+                        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                    } else {
+                        UIApplication.shared.openURL(url)
+                    }
+                }
+            case 3:
+                if let url = URL(string: "https://cafenomad.tw") {
+                    if #available(iOS 10, *) {
+                        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                    } else {
+                        UIApplication.shared.openURL(url)
+                    }
+                }
+            case 4:
+                if let url = URL(string: "http://lanassistant.simplesite.com") {
+                    if #available(iOS 10, *) {
+                        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                    } else {
+                        UIApplication.shared.openURL(url)
+                    }
+                }
+            default:
+                break
+            }
+        } else {
+            if loginManager.isLogin {
+                loginManager.delegate = self
+                loginManager.forceLogout()
+            } else {
+                let loginVC = UIStoryboard.main?.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+                navigationController?.pushViewController(loginVC)
+            }
         }
     }
 
@@ -226,4 +289,39 @@ extension SettingsViewController: MFMailComposeViewControllerDelegate {
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         controller.dismiss(animated: true, completion: nil)
     }
+}
+
+extension SettingsViewController: LoginManagerDelegate {
+    func signUpSuccess() {
+        //
+    }
+
+    func signUpFail(with errorString: String) {
+        //
+    }
+
+    func loginSuccess() {
+        //
+    }
+
+    func loginFail(with errorString: String) {
+        //
+    }
+
+    func loginCancel() {
+        //
+    }
+
+    func logoutSuccess() {
+        realmManager.removeAllCafes()
+        appDelegate.presentAlertView("登出成功", message: nil) {
+            self.loginTitle = "登入"
+            self.tableView.reloadData()
+        }
+    }
+
+    func logoutFail(with errorString: String) {
+        //
+    }
+
 }
