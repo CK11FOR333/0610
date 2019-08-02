@@ -86,7 +86,7 @@ class SettingsViewController: UIViewController {
         mailController.navigationBar.tintColor = Theme.current.accent
         mailController.mailComposeDelegate = self
 
-        mailController.setSubject("宜蘭工作咖啡館 \(appVersionString)")
+        mailController.setSubject("小蘭助手 \(appVersionString)")
 
         let toRecipients = ["kay_hsiao@zonvan.com.tw"]
         mailController.setToRecipients(toRecipients)
