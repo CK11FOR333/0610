@@ -8,6 +8,8 @@
 
 import Foundation
 
+let userDefaults = UserDefaults.standard
+
 let appBundleIdentifier = Bundle.main.bundleIdentifier ?? ""
 let appVersionString = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
 let appBuildString = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? ""

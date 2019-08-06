@@ -19,13 +19,19 @@ class MIxViewController: UIViewController {
 
     var vcType: MyViewControllerType!
 
+
+
     var cellModels: [ActivityCellContent] = []
 
     var isExpendDataList: [Bool] = []
 
-    var backgroundColorHex: String?
+    var backgroundColorHex: String = "F2F2F2"
 
-    var navBackgroundColorHex: String?
+    var navBackgroundColorHex: String = "23C0AE"
+
+    var tabBarTintColorHex: String = "FFFFFF"
+    var tabBarBarTintColorHex: String = "23C0AE"
+    var tabBarUnselectedItemTintColorHex: String = "828282"
 
 //    var cellPaddingColorHex: String?
 
@@ -44,7 +50,8 @@ class MIxViewController: UIViewController {
                 //                let imageView = UIImageView(frame: frame)
                 //                let placeholderImage = UIImage(named: "placeholder")!
 
-                let filter = ScaledToSizeFilter(size: navImageView.frame.size)
+                let filter = AspectScaledToFitSizeFilter(size: navImageView.frame.size)
+//                let filter = ScaledToSizeFilter(size: navImageView.frame.size)
 
                 //                let filter = AspectScaledToFillSizeWithRoundedCornersFilter(
                 //                    size: cellImageView.frame.size,
@@ -53,10 +60,14 @@ class MIxViewController: UIViewController {
 
                 navImageView.af_setImage(
                     withURL: url,
-                    placeholderImage: nil,
+                    placeholderImage: UIImage.init(color: .white, size: CGSize.zero),
                     filter: filter,
                     imageTransition: .crossDissolve(0.2)
                 )
+
+                self.navigationItem.titleView = navImageView
+
+//                navImageView.kf.setImage(with: url, placeholder: UIImage(named: "image-placeholder-icon"), options: nil, progressBlock: nil, completionHandler: nil)
 
 //                let processor = DownsamplingImageProcessor(size: navImageView.frame.size)
 //
@@ -87,6 +98,8 @@ class MIxViewController: UIViewController {
         }
     }
 
+    var refreshControl: UIRefreshControl!
+
     @IBOutlet weak var tableView: UITableView!
 
     override func viewDidLoad() {
@@ -94,6 +107,21 @@ class MIxViewController: UIViewController {
         // Do any additional setup after loading the view.
         setupTableView()
         getJSON()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        setupTabBar()
+    }
+
+    func setupTabBar() {
+        self.tabBarController?.tabBar.barTintColor = UIColor(hexString: tabBarBarTintColorHex)
+        self.tabBarController?.tabBar.tintColor = UIColor(hexString: tabBarTintColorHex)
+        if #available(iOS 10.0, *) {
+            self.tabBarController?.tabBar.unselectedItemTintColor = UIColor(hexString: tabBarUnselectedItemTintColorHex)
+        } else {
+            // Fallback on earlier versions
+        }
     }
 
     func setupTableView() {
@@ -134,55 +162,125 @@ class MIxViewController: UIViewController {
         // type 7
         let sevenTableViewCell: UINib = UINib(nibName: "TypeSevenTableViewCell", bundle: nil)
         tableView.register(sevenTableViewCell, forCellReuseIdentifier: "TypeSevenTableViewCell")
+
+
+        refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(getJSON), for: .valueChanged)
+        if #available(iOS 10.0, *) {
+            tableView.refreshControl = refreshControl
+        } else {
+            // Fallback on earlier versions
+            tableView.addSubview(refreshControl)
+        }
     }
 
-    func getJSON() {
+    @objc func getJSON() {
         if let vcType = vcType {
             switch vcType {
             case .viewController3:
-                requestManager.getＣourse { [weak self] (json) in
+                requestManager.getBrand { [weak self] (json) in
                     log.info(json)
                     guard let strongSelf = self else { return }
-                    strongSelf.showNavBarImageWith(json: json, vc: strongSelf)
-                    strongSelf.setTableViewBackgroundColor(json: json, vc: strongSelf)
+
                     strongSelf.appCellModelsWith(json: json, vc: strongSelf)
-                    self?.tableView.reloadData()
+
+                    if #available(iOS 10.0, *) {
+                        strongSelf.tableView.refreshControl?.endRefreshing()
+                    } else {
+                        // Fallback on earlier versions
+                        strongSelf.refreshControl.endRefreshing()
+                    }
+
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.3, execute: {
+                        strongSelf.showNavBarImageWith(json: json, vc: strongSelf)
+                        strongSelf.setTabBarColor(json: json, vc: strongSelf)
+                        strongSelf.setTableViewBackgroundColor(json: json, vc: strongSelf)
+                        strongSelf.tableView.reloadData()
+                    })
                 }
             case .viewController4:
-                requestManager.getParty { [weak self] (json) in
+                requestManager.getCoffee { [weak self] (json) in
                     log.info(json)
                     guard let strongSelf = self else { return }
-                    strongSelf.showNavBarImageWith(json: json, vc: strongSelf)
-                    strongSelf.setTableViewBackgroundColor(json: json, vc: strongSelf)
+
                     strongSelf.appCellModelsWith(json: json, vc: strongSelf)
-                    self?.tableView.reloadData()
+
+                    if #available(iOS 10.0, *) {
+                        strongSelf.tableView.refreshControl?.endRefreshing()
+                    } else {
+                        // Fallback on earlier versions
+                        strongSelf.refreshControl.endRefreshing()
+                    }
+
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.3, execute: {
+                        strongSelf.showNavBarImageWith(json: json, vc: strongSelf)
+                        strongSelf.setTabBarColor(json: json, vc: strongSelf)
+                        strongSelf.setTableViewBackgroundColor(json: json, vc: strongSelf)
+                        strongSelf.tableView.reloadData()
+                    })
                 }
             case .viewController5:
-                requestManager.getPopular { [weak self] (json) in
+                requestManager.getDecentralization { [weak self] (json) in
                     log.info(json)
                     guard let strongSelf = self else { return }
-                    strongSelf.showNavBarImageWith(json: json, vc: strongSelf)
-                    strongSelf.setTableViewBackgroundColor(json: json, vc: strongSelf)
+
                     strongSelf.appCellModelsWith(json: json, vc: strongSelf)
-                    self?.tableView.reloadData()
+
+                    if #available(iOS 10.0, *) {
+                        strongSelf.tableView.refreshControl?.endRefreshing()
+                    } else {
+                        // Fallback on earlier versions
+                        strongSelf.refreshControl.endRefreshing()
+                    }
+
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.3, execute: {
+                        strongSelf.showNavBarImageWith(json: json, vc: strongSelf)
+                        strongSelf.setTabBarColor(json: json, vc: strongSelf)
+                        strongSelf.setTableViewBackgroundColor(json: json, vc: strongSelf)
+                        strongSelf.tableView.reloadData()
+                    })
                 }
             case .viewController6:
-                requestManager.getHot { [weak self] (json) in
+                requestManager.getEshopping { [weak self] (json) in
                     log.info(json)
                     guard let strongSelf = self else { return }
-                    strongSelf.showNavBarImageWith(json: json, vc: strongSelf)
-                    strongSelf.setTableViewBackgroundColor(json: json, vc: strongSelf)
+
                     strongSelf.appCellModelsWith(json: json, vc: strongSelf)
-                    self?.tableView.reloadData()
+
+                    if #available(iOS 10.0, *) {
+                        strongSelf.tableView.refreshControl?.endRefreshing()
+                    } else {
+                        // Fallback on earlier versions
+                        strongSelf.refreshControl.endRefreshing()
+                    }
+
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.3, execute: {
+                        strongSelf.showNavBarImageWith(json: json, vc: strongSelf)
+                        strongSelf.setTabBarColor(json: json, vc: strongSelf)
+                        strongSelf.setTableViewBackgroundColor(json: json, vc: strongSelf)
+                        strongSelf.tableView.reloadData()
+                    })
                 }
             case .viewController7:
-                requestManager.getMarqueel { [weak self] (json) in
+                requestManager.getFairness { [weak self] (json) in
                     log.info(json)
                     guard let strongSelf = self else { return }
-                    strongSelf.showNavBarImageWith(json: json, vc: strongSelf)
-                    strongSelf.setTableViewBackgroundColor(json: json, vc: strongSelf)
+
                     strongSelf.appCellModelsWith(json: json, vc: strongSelf)
-                    self?.tableView.reloadData()
+
+                    if #available(iOS 10.0, *) {
+                        strongSelf.tableView.refreshControl?.endRefreshing()
+                    } else {
+                        // Fallback on earlier versions
+                        strongSelf.refreshControl.endRefreshing()
+                    }
+
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.3, execute: {
+                        strongSelf.showNavBarImageWith(json: json, vc: strongSelf)
+                        strongSelf.setTabBarColor(json: json, vc: strongSelf)
+                        strongSelf.setTableViewBackgroundColor(json: json, vc: strongSelf)
+                        strongSelf.tableView.reloadData()
+                    })
                 }
             default:
                 break
@@ -194,18 +292,28 @@ class MIxViewController: UIViewController {
         guard vc is MIxViewController else { return }
 
         navBackgroundColorHex = json["navBarColor"].stringValue
-        (vc as! MIxViewController).navigationController?.navigationBar.backgroundColor = UIColor(hexString: navBackgroundColorHex!)
-        (vc as! MIxViewController).navigationController?.navigationBar.barTintColor = UIColor(hexString: navBackgroundColorHex!)
+        (vc as! MIxViewController).navigationController?.navigationBar.backgroundColor = UIColor(hexString: navBackgroundColorHex)
+        (vc as! MIxViewController).navigationController?.navigationBar.barTintColor = UIColor(hexString: navBackgroundColorHex)
         (vc as! MIxViewController).navigationController?.navigationBar.isTranslucent = false
 
         (vc as! MIxViewController).navImageStr = json["navImage"].stringValue
+    }
+
+    func setTabBarColor(json: JSON, vc: UIViewController) {
+        guard vc is MIxViewController else { return }
+
+        tabBarTintColorHex = json["tabBarTintColor"].stringValue
+        tabBarBarTintColorHex = json["tabBarColor"].stringValue
+        tabBarUnselectedItemTintColorHex = json["unSelectedTabBarColor"].stringValue
+
+        setupTabBar()
     }
 
     func setTableViewBackgroundColor(json: JSON, vc: UIViewController) {
         guard vc is MIxViewController else { return }
 
         backgroundColorHex = json["tableBackgroundColor"].stringValue
-        (vc as! MIxViewController).tableView.backgroundColor = UIColor.init(hexString: backgroundColorHex!)
+        (vc as! MIxViewController).tableView.backgroundColor = UIColor.init(hexString: backgroundColorHex)
     }
 
     func appCellModelsWith(json: JSON, vc: UIViewController) {
@@ -373,6 +481,8 @@ extension MIxViewController: UITableViewDataSource {
                 images.append(content.textImage!)
             }
             cell.bannerView.imagePaths = images
+            cell.bannerView.delegate = self
+            cell.bannerView.tag = indexPath.section
 
             cell.marqueelTitleLabel.text = (content as! TypeOne).title
             cell.marqueelTitleLabel.textColor = UIColor(hexString: (content as! TypeOne).titleColor)
@@ -392,15 +502,15 @@ extension MIxViewController: UITableViewDataSource {
         case is TypeTwo:
             let cell = tableView.dequeueReusableCell(withIdentifier: "TypeTwoTableViewCell", for: indexPath) as! TypeTwoTableViewCell
             cell.cellModels = (content as! TypeTwo).contents
-            cell.contentView.backgroundColor = UIColor.init(hexString: backgroundColorHex!)
-            cell.backgroundColor = UIColor.init(hexString: backgroundColorHex!)
-            cell.cellBackgroundColor = UIColor.init(hexString: backgroundColorHex!)
+            cell.contentView.backgroundColor = UIColor.init(hexString: backgroundColorHex)
+            cell.backgroundColor = UIColor.init(hexString: backgroundColorHex)
+            cell.cellBackgroundColor = UIColor.init(hexString: backgroundColorHex)
             return cell
 
         case is TypeThree:
             let cell = tableView.dequeueReusableCell(withIdentifier: "PayTableViewCell", for: indexPath) as! PayTableViewCell
             cell.cellModels = (content as! TypeThree).contents
-            cell.contentView.backgroundColor = UIColor.init(hexString: backgroundColorHex!)
+            cell.contentView.backgroundColor = UIColor.init(hexString: backgroundColorHex)
             return cell
 
         case is TypeFour:
@@ -623,4 +733,21 @@ extension MIxViewController: ImageTableViewCellDelegate {
         }
     }
 
+}
+
+extension MIxViewController: LLCycleScrollViewDelegate {
+
+    func cycleScrollView(_ cycleScrollView: LLCycleScrollView, didSelectItemIndex index: NSInteger) {
+        let content = cellModels[cycleScrollView.tag]
+
+        if let textWeb = (content as! TypeOne).contents[index].textWeb, let url = URL(string: textWeb) {
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            } else {
+                // Fallback on earlier versions
+                UIApplication.shared.openURL(url)
+            }
+        }
+    }
+    
 }

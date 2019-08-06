@@ -22,4 +22,5 @@ protocol ThemeProtocol {
     var shadow: UIColor { get }
 
     var fullStar: UIColor { get }
+    var cornerButton: UIColor { get }
 }

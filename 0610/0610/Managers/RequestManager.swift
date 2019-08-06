@@ -54,11 +54,11 @@ struct AppAPI {
     }
 
     static let activitys   = stripURL("/master/Activities.json")
-    static let course = stripURL("/master/Course.json")
-    static let party = stripURL("/master/Party.json")
-    static let popular = stripURL("/master/Popular.json")
-    static let hot = stripURL("/master/Hot.json")
-    static let marqueel = stripURL("/master/Marqueel.json")
+    static let brand = stripURL("/master/Brand.json")
+    static let coffee = stripURL("/master/Coffee.json")
+    static let decentralization = stripURL("/master/Decentralization.json")
+    static let eshopping = stripURL("/master/Eshopping.json")
+    static let fairness = stripURL("/master/Fairness.json")
 }
 
 class RequestManager {
@@ -85,15 +85,16 @@ class RequestManager {
             "Content-Type": "application/json"
         ]
 
-//        SVProgressHUD.show()
+        SVProgressHUD.show()
 
         currentRequest = Alamofire.request(url, method: method, parameters: parameters, encoding: JSONEncoding.default, headers: headers)
             .responseJSON { response -> Void in
-                
-//                SVProgressHUD.dismiss()
 
                 switch response.result {
                 case .success:
+
+                    SVProgressHUD.dismiss(withDelay: 0.5)
+
                     if let value = response.result.value {
 //                        log.info(value)
                         let json = JSON(value)
@@ -101,6 +102,10 @@ class RequestManager {
                         callback(json)
                     }
                 case .failure(let error):
+
+                    SVProgressHUD.dismiss()
+
+
 //                    let currentVC = appDelegate.findCurrentViewController()
 //                    let alertVC = AlertViewController.instantiateFromStoryboard()
 //                    alertVC.titleSting = ""
@@ -136,39 +141,34 @@ extension RequestManager {
         baseRequest(.get, url: AppAPI.activitys, parameters: nil, needToken: false, callback: success)
     }
 
-    /// 所有功能頁
-    func getＣourse(success: @escaping (_ data: JSON) -> Void) {
-        baseRequest(.get, url: AppAPI.course, parameters: nil, needToken: false, callback: success)
+    /// viewController3
+    func getBrand(success: @escaping (_ data: JSON) -> Void) {
+        baseRequest(.get, url: AppAPI.brand, parameters: nil, needToken: false, callback: success)
     }
 
-    /// 活动优惠
-    func getParty(success: @escaping (_ data: JSON) -> Void) {
-        baseRequest(.get, url: AppAPI.party, parameters: nil, needToken: false, callback: success)
+    /// viewController4
+    func getCoffee(success: @escaping (_ data: JSON) -> Void) {
+        baseRequest(.get, url: AppAPI.coffee, parameters: nil, needToken: false, callback: success)
     }
 
-    /// 彩金申请
-    func getPopular(success: @escaping (_ data: JSON) -> Void) {
-        baseRequest(.get, url: AppAPI.popular, parameters: nil, needToken: false, callback: success)
+    /// viewController5
+    func getDecentralization(success: @escaping (_ data: JSON) -> Void) {
+        baseRequest(.get, url: AppAPI.decentralization, parameters: nil, needToken: false, callback: success)
     }
 
-    ///
-    func getHot(success: @escaping (_ data: JSON) -> Void) {
-        baseRequest(.get, url: AppAPI.hot, parameters: nil, needToken: false, callback: success)
+    /// viewController6
+    func getEshopping(success: @escaping (_ data: JSON) -> Void) {
+        baseRequest(.get, url: AppAPI.eshopping, parameters: nil, needToken: false, callback: success)
     }
 
-    /// 
-    func getMarqueel(success: @escaping (_ data: JSON) -> Void) {
-        baseRequest(.get, url: AppAPI.marqueel, parameters: nil, needToken: false, callback: success)
+    ///  viewController7
+    func getFairness(success: @escaping (_ data: JSON) -> Void) {
+        baseRequest(.get, url: AppAPI.fairness, parameters: nil, needToken: false, callback: success)
     }
 
-    /// 台北咖啡廳
-    func getTaipeiCafe (success: @escaping (_ data: JSON) -> Void) {
-        baseRequest(.get, url: "https://cafenomad.tw/api/v1.2/cafes/taipei", parameters: nil, needToken: false, callback: success)
-    }
-
-    /// 宜蘭咖啡廳
-    func getYilanCafe (success: @escaping (_ cafes: [Cafe]) -> Void) {
-        baseRequest(.get, url: "https://cafenomad.tw/api/v1.2/cafes/yilan") { (json) in
+    /// 全台咖啡廳
+    func getCafe(with name: String, success: @escaping (_ cafes: [Cafe]) -> Void) {
+        baseRequest(.get, url: "https://cafenomad.tw/api/v1.2/cafes/\(name)") { (json) in
             let cafeArray = json.arrayValue
             log.info("cafeArray count is \(cafeArray.count)")
 

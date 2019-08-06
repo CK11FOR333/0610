@@ -10,14 +10,14 @@ import UIKit
 import SwiftyJSON
 
 enum MyViewControllerType: String {
-    case viewController0 = "宜蘭工作咖啡廳"
+    case viewController0 = "工作咖啡廳"
     case viewController1 = "地圖"
     case viewController2 = "我的"
-    case viewController3 = "自定義介面0" // course.json
-    case viewController4 = "自定義介面1" // party.json
-    case viewController5 = "自定義介面2" // popular.json
-    case viewController6 = "自定義介面3" // hot.json
-    case viewController7 = "自定義介面4" // marqueel.json
+    case viewController3 = "自定義介面0" // Brand.json
+    case viewController4 = "自定義介面1" // Coffee.json
+    case viewController5 = "自定義介面2" // Decentralization.json
+    case viewController6 = "自定義介面3" // Eshopping.json
+    case viewController7 = "自定義介面4" // Fairness.json
 }
 
 class MainTabBarController: UITabBarController {
@@ -37,34 +37,17 @@ class MainTabBarController: UITabBarController {
         requestManager.getActivitys(success: { [weak self] (json) in
             log.info(json)
 
-
-            if #available(iOS 10.0, *) {
-                let tintColorHex = json["tintColor"].stringValue
-                self?.tabBar.tintColor = UIColor(hexString: tintColorHex)
-                let tabBarColorHex = json["tabBarColor"].stringValue
-                self?.tabBar.barTintColor = UIColor(hexString: tabBarColorHex)
-                let unSelectedTabBarColorHex = json["unSelectedTabBarColor"].stringValue
-                self?.tabBar.unselectedItemTintColor = UIColor(hexString: unSelectedTabBarColorHex)
-            } else {
-                // Fallback on earlier versions
-                let tintColorHex = json["tintColor"].stringValue
-                self?.tabBar.tintColor = UIColor(hexString: tintColorHex)
-                let tabBarColorHex = json["tabBarColor"].stringValue
-                self?.tabBar.barTintColor = UIColor(hexString: tabBarColorHex)
-//                let unSelectedTabBarColorHex = json["unSelectedTabBarColor"].stringValue
-//                self?.tabBar.unselectedItemTintColor = UIColor(hexString: unSelectedTabBarColorHex)
-            }
-
             let list = json["list"].arrayValue
             for activity in list {
                 let myVC = Activity(vc: activity["vc"].stringValue, img: activity["img"].stringValue, name: activity["name"].stringValue)
                 self?.myVCs.append(myVC)
             }
-            self?.setupTabBar()
+            
+            self?.setupTabBar(with: json)
         })
     }
 
-    func setupTabBar() {
+    func setupTabBar(with json: JSON) {
         var vcs = [UIViewController]()
 
         // If the number of view controllers is greater than the number displayable by a tab bar, a "More" navigation controller will automatically be shown.

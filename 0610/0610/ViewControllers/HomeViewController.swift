@@ -8,6 +8,8 @@
 
 import UIKit
 import SwiftyJSON
+import Firebase
+import FirebaseAuth
 
 enum CafeRatingType {
     case wifi
@@ -18,9 +20,76 @@ enum CafeRatingType {
     case music
 }
 
+enum TaiwanCity: String {
+    case keelung    = "Keelung"
+    case taipei     = "Taipei"
+    case taoyuan    = "Taoyuan"
+    case hsinchu    = "Hsinchu"
+    case miaoli     = "Miaoli"
+    case taichung   = "Taichung"
+    case changhua   = "Changhua"
+    case nantou     = "Nantou"
+    case yunlin     = "Yunlin"
+    case chiayi     = "Chiayi"
+    case tainan     = "Tainan"
+    case kaohsiung  = "Kaohsiung"
+    case pingtung   = "Pingtung"
+    case taitung    = "Taitung"
+    case hualien    = "Hualien"
+    case yilan       = "Yilan"
+    case penghu     = "Penghu"
+    case lienchiang = "Lienchiang"
+}
+
+extension TaiwanCity: CustomStringConvertible {
+    var description: String {
+        switch self {
+        case .keelung:
+            return "基隆"
+        case .taipei:
+            return "台北"
+        case .taoyuan:
+            return "桃園"
+        case .hsinchu:
+            return "新竹"
+        case .miaoli:
+            return "苗栗"
+        case .taichung:
+            return "台中"
+        case .changhua:
+            return "彰化"
+        case .nantou:
+            return "南投"
+        case .yunlin:
+            return "雲林"
+        case .chiayi:
+            return "嘉義"
+        case .tainan:
+            return "台南"
+        case .kaohsiung:
+            return "高雄"
+        case .pingtung:
+            return "屏東"
+        case .taitung:
+            return "台東"
+        case .hualien:
+            return "花蓮"
+        case .yilan:
+            return "宜蘭"
+        case .penghu:
+            return "澎湖"
+        case .lienchiang:
+            return "連江"
+        }
+    }
+}
+
 class HomeViewController: UIViewController {
 
     var vcType: MyViewControllerType!
+
+    /// 預設台北
+    var city = TaiwanCity.taipei
 
     var cafes: [Cafe] = []
     var searchResult: [Cafe] = []
@@ -28,7 +97,18 @@ class HomeViewController: UIViewController {
     var refreshControl: UIRefreshControl!
     var searchController: UISearchController!
 
+    var authHandle: AuthStateDidChangeListenerHandle?
+    var isLogin: Bool = false
+
     @IBOutlet weak var tableView: UITableView!
+
+    @IBOutlet weak var SortView: UIView!
+    @IBOutlet weak var SortImageView: UIImageView!
+    @IBOutlet weak var SortButton: UIButton!
+
+    @IBAction func clickSortButton(_ sender: UIButton) {
+        showSortActions()
+    }
 
 //    @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
 
@@ -36,11 +116,8 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         setupNavigationBar()
         setupTableView()
-        getJSON()
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+        setupFilterButton()
+        getCafes()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -51,6 +128,7 @@ class HomeViewController: UIViewController {
     fileprivate func applyTheme() {
         view.backgroundColor = Theme.current.tableViewCellBackgorund
 
+        navigationItem.title = city.description
 
         navigationController?.navigationBar.barStyle = UserDefaults.standard.bool(forKey: "kIsDarkTheme") ? .default : .black
 
@@ -59,7 +137,10 @@ class HomeViewController: UIViewController {
         navigationController?.navigationBar.tintColor = Theme.current.tint
         navigationController?.navigationBar.isTranslucent = false
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: Theme.current.tint]
+
+
         if #available(iOS 11.0, *) {
+            self.navigationController?.navigationBar.prefersLargeTitles = true
             navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: Theme.current.tint]
         } else {
             // Fallback on earlier versions
@@ -93,10 +174,14 @@ class HomeViewController: UIViewController {
         }
 
         refreshControl.tintColor = Theme.current.tint
+
+        SortImageView.tintColor = Theme.current.tint
     }
 
     func setupNavigationBar() {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "navbar_icon_filter_default"), style: .plain, target: self, action: #selector(showSortActions))
+
+        navigationItem.title = city.description
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "navbar_icon_filter_default"), style: .plain, target: self, action: #selector(showFilterActions))
 
         // SearchController
         searchController = UISearchController(searchResultsController: nil)
@@ -116,7 +201,7 @@ class HomeViewController: UIViewController {
 
         refreshControl = UIRefreshControl()
 
-        refreshControl.addTarget(self, action: #selector(getJSON), for: .valueChanged)
+        refreshControl.addTarget(self, action: #selector(getCafes), for: .valueChanged)
         if #available(iOS 10.0, *) {
             tableView.refreshControl = refreshControl
         } else {
@@ -127,8 +212,19 @@ class HomeViewController: UIViewController {
         tableView.register(nibWithCellClass: CafeTableViewCell.self)
     }
 
-    @objc func getJSON() {
-        requestManager.getYilanCafe { [weak self] (cafes) in
+    func setupFilterButton() {
+        SortImageView.image = UIImage(named: "navbar_icon_sort_default")?.withRenderingMode(.alwaysTemplate)
+        SortImageView.tintColor = Theme.current.tint
+        SortView.backgroundColor = Theme.current.accent
+        SortView.layer.cornerRadius = 30
+        SortView.layer.shadowColor = UIColor.black.cgColor
+        SortView.layer.shadowOffset = CGSize(width: 0, height: 2)
+        SortView.layer.shadowOpacity = 0.5
+        SortView.layer.masksToBounds = false
+    }
+
+    @objc func getCafes() {
+        requestManager.getCafe(with: city.rawValue) { [weak self] (cafes) in
             guard let strongSelf = self else { return }
             strongSelf.cafes = cafes
             if #available(iOS 10.0, *) {
@@ -139,6 +235,7 @@ class HomeViewController: UIViewController {
             }
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.3, execute: {
                 strongSelf.tableView.reloadData()
+                strongSelf.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
                 self?.applyTheme()
             })
         }
@@ -159,6 +256,94 @@ class HomeViewController: UIViewController {
             }
             return false
         })
+    }
+
+    @objc func showFilterActions() {
+        let alertController = UIAlertController.init(title: "選擇城市", message: nil, preferredStyle: .actionSheet)
+        alertController.addAction(title: TaiwanCity.keelung.description, style: .default, isEnabled: true) { (action) in
+            self.city = TaiwanCity.keelung
+            self.getCafes()
+        }
+        alertController.addAction(title: TaiwanCity.taipei.description, style: .default, isEnabled: true) { (action) in
+            self.city = TaiwanCity.taipei
+            self.getCafes()
+        }
+        alertController.addAction(title: TaiwanCity.taoyuan.description, style: .default, isEnabled: true) { (action) in
+            self.city = TaiwanCity.taoyuan
+            self.getCafes()
+        }
+        alertController.addAction(title: TaiwanCity.hsinchu.description, style: .default, isEnabled: true) { (action) in
+            self.city = TaiwanCity.hsinchu
+            self.getCafes()
+        }
+        alertController.addAction(title: TaiwanCity.miaoli.description, style: .default, isEnabled: true) { (action) in
+            self.city = TaiwanCity.miaoli
+            self.getCafes()
+        }
+        alertController.addAction(title: TaiwanCity.taichung.description, style: .default, isEnabled: true) { (action) in
+            self.city = TaiwanCity.taichung
+            self.getCafes()
+        }
+        alertController.addAction(title: TaiwanCity.changhua.description, style: .default, isEnabled: true) { (action) in
+            self.city = TaiwanCity.changhua
+            self.getCafes()
+        }
+        alertController.addAction(title: TaiwanCity.nantou.description, style: .default, isEnabled: true) { (action) in
+            self.city = TaiwanCity.nantou
+            self.getCafes()
+        }
+        alertController.addAction(title: TaiwanCity.yunlin.description, style: .default, isEnabled: true) { (action) in
+            self.city = TaiwanCity.yunlin
+            self.getCafes()
+        }
+        alertController.addAction(title: TaiwanCity.chiayi.description, style: .default, isEnabled: true) { (action) in
+            self.city = TaiwanCity.chiayi
+            self.getCafes()
+        }
+        alertController.addAction(title: TaiwanCity.tainan.description, style: .default, isEnabled: true) { (action) in
+            self.city = TaiwanCity.tainan
+            self.getCafes()
+        }
+        alertController.addAction(title: TaiwanCity.kaohsiung.description, style: .default, isEnabled: true) { (action) in
+            self.city = TaiwanCity.kaohsiung
+            self.getCafes()
+        }
+        alertController.addAction(title: TaiwanCity.pingtung.description, style: .default, isEnabled: true) { (action) in
+            self.city = TaiwanCity.pingtung
+            self.getCafes()
+        }
+        alertController.addAction(title: TaiwanCity.taitung.description, style: .default, isEnabled: true) { (action) in
+            self.city = TaiwanCity.taitung
+            self.getCafes()
+        }
+        alertController.addAction(title: TaiwanCity.hualien.description, style: .default, isEnabled: true) { (action) in
+            self.city = TaiwanCity.hualien
+            self.getCafes()
+        }
+        alertController.addAction(title: TaiwanCity.yilan.description, style: .default, isEnabled: true) { (action) in
+            self.city = TaiwanCity.yilan
+            self.getCafes()
+        }
+        alertController.addAction(title: TaiwanCity.penghu.description, style: .default, isEnabled: true) { (action) in
+            self.city = TaiwanCity.penghu
+            self.getCafes()
+        }
+        alertController.addAction(title: TaiwanCity.lienchiang.description, style: .default, isEnabled: true) { (action) in
+            self.city = TaiwanCity.lienchiang
+            self.getCafes()
+        }
+        alertController.addAction(title: "取消", style: .cancel, isEnabled: true) { (action) in
+            //
+        }
+
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            alertController.popoverPresentationController?.barButtonItem = self.navigationItem.rightBarButtonItem
+            alertController.popoverPresentationController?.permittedArrowDirections = .up
+            alertController.popoverPresentationController?.sourceView = self.view
+            alertController.popoverPresentationController?.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
+        }
+
+        alertController.show()
     }
 
     @objc func showSortActions() {
@@ -186,47 +371,81 @@ class HomeViewController: UIViewController {
         }
 
         if UIDevice.current.userInterfaceIdiom == .pad {
-            alertController.popoverPresentationController?.barButtonItem = self.navigationItem.rightBarButtonItem
-            alertController.popoverPresentationController?.permittedArrowDirections = .up
-            alertController.popoverPresentationController?.sourceView = self.view
-            alertController.popoverPresentationController?.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
+            alertController.popoverPresentationController?.permittedArrowDirections = .down
+            alertController.popoverPresentationController?.sourceView = self.SortView
+            alertController.popoverPresentationController?.sourceRect = CGRect(x: 0, y: 0, width: self.SortView.frame.width, height: self.SortView.frame.height)
         }
 
         alertController.show()
     }
 
     func sortCafes(with type: CafeRatingType) {
-        switch type {
-        case .wifi:
-            cafes.sort { (a, b) -> Bool in
-                return a.wifi > b.wifi
+        if searchController.isActive {
+            switch type {
+            case .wifi:
+                searchResult.sort { (a, b) -> Bool in
+                    return a.wifi > b.wifi
+                }
+                tableView.reloadData()
+            case .seat:
+                searchResult.sort { (a, b) -> Bool in
+                    return a.seat > b.seat
+                }
+                tableView.reloadData()
+            case .quiet:
+                searchResult.sort { (a, b) -> Bool in
+                    return a.quiet > b.quiet
+                }
+                tableView.reloadData()
+            case .cheap:
+                searchResult.sort { (a, b) -> Bool in
+                    return a.cheap > b.cheap
+                }
+                tableView.reloadData()
+            case .music:
+                searchResult.sort { (a, b) -> Bool in
+                    return a.music > b.music
+                }
+                tableView.reloadData()
+            case .tasty:
+                searchResult.sort { (a, b) -> Bool in
+                    return a.tasty > b.tasty
+                }
+                tableView.reloadData()
             }
-            tableView.reloadData()
-        case .seat:
-            cafes.sort { (a, b) -> Bool in
-                return a.seat > b.seat
+        } else {
+            switch type {
+            case .wifi:
+                cafes.sort { (a, b) -> Bool in
+                    return a.wifi > b.wifi
+                }
+                tableView.reloadData()
+            case .seat:
+                cafes.sort { (a, b) -> Bool in
+                    return a.seat > b.seat
+                }
+                tableView.reloadData()
+            case .quiet:
+                cafes.sort { (a, b) -> Bool in
+                    return a.quiet > b.quiet
+                }
+                tableView.reloadData()
+            case .cheap:
+                cafes.sort { (a, b) -> Bool in
+                    return a.cheap > b.cheap
+                }
+                tableView.reloadData()
+            case .music:
+                cafes.sort { (a, b) -> Bool in
+                    return a.music > b.music
+                }
+                tableView.reloadData()
+            case .tasty:
+                cafes.sort { (a, b) -> Bool in
+                    return a.tasty > b.tasty
+                }
+                tableView.reloadData()
             }
-            tableView.reloadData()
-        case .quiet:
-            cafes.sort { (a, b) -> Bool in
-                return a.quiet > b.quiet
-            }
-            tableView.reloadData()
-        case .cheap:
-            cafes.sort { (a, b) -> Bool in
-                return a.cheap > b.cheap
-            }
-            tableView.reloadData()
-        case .music:
-            cafes.sort { (a, b) -> Bool in
-                return a.music > b.music
-            }
-            tableView.reloadData()
-        case .tasty:
-            cafes.sort { (a, b) -> Bool in
-                return a.tasty > b.tasty
-            }
-            tableView.reloadData()
         }
     }
 
@@ -246,7 +465,7 @@ extension HomeViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CafeTableViewCell", for: indexPath) as! CafeTableViewCell
         cell.selectionStyle = .none
 
-//        cell.delegate = self
+        cell.delegate = self
 
         cell.indexPath = indexPath
 
@@ -292,32 +511,44 @@ extension HomeViewController: UITableViewDelegate {
     }
 
 }
-//
-//extension HomeViewController: CafeTableViewCellDelegate {
-//
-//    func didClickCollectButton(_ sender: UIButton, at indexPath: IndexPath) {
-//        var cafe: Cafe
-//        if searchController.isActive {
-//            cafe = searchResult[indexPath.row]
-//        } else {
-//            cafe = cafes[indexPath.row]
-//        }
-//
-//        var isCollected = UserDefaults.standard.bool(forKey: cafe.id)
-//        if isCollected {
-//            UserDefaults.standard.set(false, forKey: cafe.id)
-//            isCollected = false
-//        } else {
-//            UserDefaults.standard.set(true, forKey: cafe.id)
-//            isCollected = true
-//        }
-//        UserDefaults.standard.synchronize()
-////        tableView.reloadRows(at: [indexPath], with: .automatic)
-////        sender.tintColor = Theme.current.fullStar
-//        sender.isSelected = isCollected
-//    }
-//
-//}
+
+extension HomeViewController: CafeTableViewCellDelegate {
+
+    func didClickCollectButton(_ sender: UIButton, at indexPath: IndexPath) {
+        var cafe: Cafe
+        if searchController.isActive {
+            cafe = searchResult[indexPath.row]
+        } else {
+            cafe = cafes[indexPath.row]
+        }
+
+        if loginManager.isLogin {
+            var isCollected = realmManager.isCafeCollected(cafe)
+
+            if isCollected {
+                realmManager.removeFavoriteCafe(cafe)
+            } else {
+                realmManager.addFavoriteCafe(cafe)
+            }
+
+            isCollected = !isCollected
+
+            sender.isSelected = isCollected
+            if isCollected {
+                sender.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
+                UIView.animate(withDuration: 1.5, delay: 0, usingSpringWithDamping: 0.2, initialSpringVelocity: 6.0, options: .allowUserInteraction, animations: {
+                    sender.transform = .identity
+                }, completion: nil)
+            }
+        } else {
+            appDelegate.presentAlertView("登入以使用收藏功能", message: nil) {
+                let loginVC = UIStoryboard.main?.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+                self.navigationController?.pushViewController(loginVC)
+            }
+        }
+    }
+
+}
 
 extension HomeViewController: UISearchResultsUpdating {
 

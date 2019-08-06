@@ -12,9 +12,14 @@ import CoreLocation
 
 class MapViewController: UIViewController {
 
+    /// 預設台北
+    var city = TaiwanCity.taipei
+
     var cafes: [Cafe] = []
 
     var geoCoder = CLGeocoder()
+
+    var annotations: [MKPointAnnotation] = []
 
     var locationManager = CLLocationManager()
 
@@ -65,7 +70,7 @@ class MapViewController: UIViewController {
         setupNavigationBar()
         setupMapView()
         setupLocationButton()
-        getJSON()
+        getCafes()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -80,8 +85,12 @@ class MapViewController: UIViewController {
     }
 
     func setupNavigationBar() {
+        navigationItem.title = city.description
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "navbar_icon_filter_default"), style: .plain, target: self, action: #selector(showFilterActions))
+
+
         navigationController?.navigationBar.barStyle = UserDefaults.standard.bool(forKey: "kIsDarkTheme") ? .default : .black
-        
+
         navigationController?.navigationBar.backgroundColor = Theme.current.navigationBar
         navigationController?.navigationBar.barTintColor = Theme.current.navigationBar
         navigationController?.navigationBar.isTranslucent = false
@@ -99,7 +108,7 @@ class MapViewController: UIViewController {
     func setupLocationButton() {
         locationImageView.image = UIImage(named: "google_location_con")?.withRenderingMode(.alwaysTemplate)
         locationImageView.tintColor = Theme.current.tint
-        locationView.backgroundColor = Theme.current.accent
+        locationView.backgroundColor = Theme.current.cornerButton
         locationView.layer.cornerRadius = 30
         locationView.layer.shadowColor = UIColor.black.cgColor
         locationView.layer.shadowOffset = CGSize(width: 0, height: 2)
@@ -107,10 +116,8 @@ class MapViewController: UIViewController {
         locationView.layer.masksToBounds = false
     }
 
-    func getJSON() {
-        cafes = []
-
-        requestManager.getYilanCafe { [weak self] (cafes) in
+    func getCafes() {
+        requestManager.getCafe(with: city.rawValue) { [weak self] (cafes) in
             guard let strongSelf = self else { return }
             strongSelf.cafes = cafes
             strongSelf.showCafes()
@@ -120,7 +127,7 @@ class MapViewController: UIViewController {
     fileprivate func applyTheme() {
         view.backgroundColor = Theme.current.tableViewBackground
 
-        self.setupNavigationBar()
+        setupNavigationBar()
 
         self.tabBarController?.tabBar.barTintColor = Theme.current.tabBar
         self.tabBarController?.tabBar.tintColor = Theme.current.tint
@@ -134,20 +141,135 @@ class MapViewController: UIViewController {
     }
 
     func showCafes() {
-        var annotations: [MKPointAnnotation] = []
-        for cafe in cafes {
-            let location = CLLocation(latitude: Double(cafe.latitude)!, longitude: Double(cafe.longitude)!)
-            let annotation = MKPointAnnotation()
-            annotation.title = cafe.name
-            annotation.subtitle = cafe.address
-            annotation.coordinate = location.coordinate
-            annotations.append(annotation)
+        DispatchQueue.global().async {
+            let tempAnno: [MKPointAnnotation] = self.annotations
+            self.annotations.removeAll()
+
+            for cafe in self.cafes {
+                let location = CLLocation(latitude: Double(cafe.latitude)!, longitude: Double(cafe.longitude)!)
+                let annotation = MKPointAnnotation()
+                annotation.title = cafe.name
+                annotation.subtitle = cafe.address
+                annotation.coordinate = location.coordinate
+                self.annotations.append(annotation)
+            }
+
+            DispatchQueue.main.async {
+                self.mapView.removeAnnotations(tempAnno)
+                self.mapView.showAnnotations(self.annotations, animated: true)
+                //        if annotations.count > 0 {
+                //            mapView.selectAnnotation(annotations.last!, animated: true)
+                //        }
+            }
         }
-        mapView.showAnnotations(annotations, animated: true)
-//        if annotations.count > 0 {
-//            mapView.selectAnnotation(annotations.last!, animated: true)
-//        }
     }
+
+    @objc func showFilterActions() {
+        let alertController = UIAlertController.init(title: "選擇城市", message: nil, preferredStyle: .actionSheet)
+        alertController.addAction(title: TaiwanCity.keelung.description, style: .default, isEnabled: true) { (action) in
+            self.city = TaiwanCity.keelung
+            self.getCafes()
+            self.applyTheme()
+        }
+        alertController.addAction(title: TaiwanCity.taipei.description, style: .default, isEnabled: true) { (action) in
+            self.city = TaiwanCity.taipei
+            self.getCafes()
+            self.applyTheme()
+        }
+        alertController.addAction(title: TaiwanCity.taoyuan.description, style: .default, isEnabled: true) { (action) in
+            self.city = TaiwanCity.taoyuan
+            self.getCafes()
+            self.applyTheme()
+        }
+        alertController.addAction(title: TaiwanCity.hsinchu.description, style: .default, isEnabled: true) { (action) in
+            self.city = TaiwanCity.hsinchu
+            self.getCafes()
+            self.applyTheme()
+        }
+        alertController.addAction(title: TaiwanCity.miaoli.description, style: .default, isEnabled: true) { (action) in
+            self.city = TaiwanCity.miaoli
+            self.getCafes()
+            self.applyTheme()
+        }
+        alertController.addAction(title: TaiwanCity.taichung.description, style: .default, isEnabled: true) { (action) in
+            self.city = TaiwanCity.taichung
+            self.getCafes()
+            self.applyTheme()
+        }
+        alertController.addAction(title: TaiwanCity.changhua.description, style: .default, isEnabled: true) { (action) in
+            self.city = TaiwanCity.changhua
+            self.getCafes()
+            self.applyTheme()
+        }
+        alertController.addAction(title: TaiwanCity.nantou.description, style: .default, isEnabled: true) { (action) in
+            self.city = TaiwanCity.nantou
+            self.getCafes()
+            self.applyTheme()
+        }
+        alertController.addAction(title: TaiwanCity.yunlin.description, style: .default, isEnabled: true) { (action) in
+            self.city = TaiwanCity.yunlin
+            self.getCafes()
+            self.applyTheme()
+        }
+        alertController.addAction(title: TaiwanCity.chiayi.description, style: .default, isEnabled: true) { (action) in
+            self.city = TaiwanCity.chiayi
+            self.getCafes()
+            self.applyTheme()
+        }
+        alertController.addAction(title: TaiwanCity.tainan.description, style: .default, isEnabled: true) { (action) in
+            self.city = TaiwanCity.tainan
+            self.getCafes()
+            self.applyTheme()
+        }
+        alertController.addAction(title: TaiwanCity.kaohsiung.description, style: .default, isEnabled: true) { (action) in
+            self.city = TaiwanCity.kaohsiung
+            self.getCafes()
+            self.applyTheme()
+        }
+        alertController.addAction(title: TaiwanCity.pingtung.description, style: .default, isEnabled: true) { (action) in
+            self.city = TaiwanCity.pingtung
+            self.getCafes()
+            self.applyTheme()
+        }
+        alertController.addAction(title: TaiwanCity.taitung.description, style: .default, isEnabled: true) { (action) in
+            self.city = TaiwanCity.taitung
+            self.getCafes()
+            self.applyTheme()
+        }
+        alertController.addAction(title: TaiwanCity.hualien.description, style: .default, isEnabled: true) { (action) in
+            self.city = TaiwanCity.hualien
+            self.getCafes()
+            self.applyTheme()
+        }
+        alertController.addAction(title: TaiwanCity.yilan.description, style: .default, isEnabled: true) { (action) in
+            self.city = TaiwanCity.yilan
+            self.getCafes()
+            self.applyTheme()
+        }
+        alertController.addAction(title: TaiwanCity.penghu.description, style: .default, isEnabled: true) { (action) in
+            self.city = TaiwanCity.penghu
+            self.getCafes()
+            self.applyTheme()
+        }
+        alertController.addAction(title: TaiwanCity.lienchiang.description, style: .default, isEnabled: true) { (action) in
+            self.city = TaiwanCity.lienchiang
+            self.getCafes()
+            self.applyTheme()
+        }
+        alertController.addAction(title: "取消", style: .cancel, isEnabled: true) { (action) in
+            //
+        }
+
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            alertController.popoverPresentationController?.barButtonItem = self.navigationItem.rightBarButtonItem
+            alertController.popoverPresentationController?.permittedArrowDirections = .up
+            alertController.popoverPresentationController?.sourceView = self.view
+            alertController.popoverPresentationController?.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
+        }
+
+        alertController.show()
+    }
+
 
 }
 

@@ -56,21 +56,25 @@ class MyCollectedViewController: UIViewController {
     }
 
     @objc func getJSON() {
-        requestManager.getYilanCafe { [weak self] (cafes) in
-            guard let strongSelf = self else { return }
+        cafes = realmManager.getCafes()
+        tableView.reloadData()
 
-            var myCafes: [Cafe] = []
 
-            for cafe in cafes {
-                let isCollected = UserDefaults.standard.bool(forKey: cafe.id)
-                if isCollected {
-                    myCafes.append(cafe)
-                }
-            }
-
-            strongSelf.cafes = myCafes
-            strongSelf.tableView.reloadData()
-        }
+//        requestManager.getYilanCafe { [weak self] (cafes) in
+//            guard let strongSelf = self else { return }
+//
+//            var myCafes: [Cafe] = []
+//
+//            for cafe in cafes {
+//                let isCollected = UserDefaults.standard.bool(forKey: cafe.id)
+//                if isCollected {
+//                    myCafes.append(cafe)
+//                }
+//            }
+//
+//            strongSelf.cafes = myCafes
+//            strongSelf.tableView.reloadData()
+//        }
     }
 
     fileprivate func applyTheme() {
@@ -93,7 +97,7 @@ extension MyCollectedViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CafeTableViewCell", for: indexPath) as! CafeTableViewCell
         cell.selectionStyle = .none
 
-//        cell.delegate = self
+        cell.delegate = self
 
         cell.indexPath = indexPath
 
@@ -104,6 +108,7 @@ extension MyCollectedViewController: UITableViewDataSource {
 
         return cell
     }
+
 }
 
 extension MyCollectedViewController: UITableViewDelegate {
@@ -121,25 +126,38 @@ extension MyCollectedViewController: UITableViewDelegate {
     }
 
 }
-//
-//extension MyCollectedViewController: CafeTableViewCellDelegate {
-//
-//    func didClickCollectButton(_ sender: UIButton, at indexPath: IndexPath) {
-//        var cafe: Cafe
-//
-//        cafe = cafes[indexPath.row]
-//
-//        var isCollected = UserDefaults.standard.bool(forKey: cafe.id)
-//        if isCollected {
-//            UserDefaults.standard.set(false, forKey: cafe.id)
-//            isCollected = false
-//        } else {
-//            UserDefaults.standard.set(true, forKey: cafe.id)
-//            isCollected = true
-//        }
-//        UserDefaults.standard.synchronize()
-////        tableView.reloadRows(at: [indexPath], with: .automatic)
-//        sender.isSelected = isCollected
-//    }
-//
-//}
+
+extension MyCollectedViewController: CafeTableViewCellDelegate {
+
+    func didClickCollectButton(_ sender: UIButton, at indexPath: IndexPath) {
+        var cafe: Cafe
+
+        cafe = cafes[indexPath.row]
+
+        if loginManager.isLogin {
+            var isCollected = realmManager.isCafeCollected(cafe)
+
+            if isCollected {
+                realmManager.removeFavoriteCafe(cafe)
+            } else {
+                realmManager.addFavoriteCafe(cafe)
+            }
+
+            isCollected = !isCollected
+
+            sender.isSelected = isCollected
+            if isCollected {
+                sender.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
+                UIView.animate(withDuration: 1.5, delay: 0, usingSpringWithDamping: 0.2, initialSpringVelocity: 6.0, options: .allowUserInteraction, animations: {
+                    sender.transform = .identity
+                }, completion: nil)
+            }
+        } else {
+            appDelegate.presentAlertView("登入以使用收藏功能", message: nil) {
+                let loginVC = UIStoryboard.main?.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+                self.navigationController?.pushViewController(loginVC)
+            }
+        }
+    }
+
+}

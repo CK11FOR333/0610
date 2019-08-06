@@ -17,7 +17,13 @@ target '0610' do
 #  pod 'JXMarqueeView'
 #  pod "ShowAPI_SDK"
 
+  pod 'RealmSwift'
+
   pod 'Fabric'
   pod 'Crashlytics'
+
+  pod 'Firebase/Analytics'
+  pod 'Firebase/Auth'
+  pod 'GoogleSignIn'
 
 end
