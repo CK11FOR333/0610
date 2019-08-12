@@ -525,25 +525,32 @@ extension HomeViewController: CafeTableViewCellDelegate {
         }
 
         if loginManager.isLogin {
-            var isCollected = realmManager.isCafeCollected(cafe)
+//            var isCollected = realmManager.isCafeCollected(cafe)
+            var isCollected = false
+            favoriteManager.isCafeCollected(cafe) { (collected) in
+                isCollected = collected
 
-            if isCollected {
-                realmManager.removeFavoriteCafe(cafe)
-            } else {
-                realmManager.addFavoriteCafe(cafe)
+                if isCollected {
+                    //                realmManager.removeFavoriteCafe(cafe)
 
-                favoriteManager.addFavoriteCafe(cafe)
+                    favoriteManager.removeFavoriteCafe(cafe)
+                } else {
+                    //                realmManager.addFavoriteCafe(cafe)
+
+                    favoriteManager.addFavoriteCafe(cafe)
+                }
+
+                isCollected = !isCollected
+
+                sender.isSelected = isCollected
+                if isCollected {
+                    sender.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
+                    UIView.animate(withDuration: 1.5, delay: 0, usingSpringWithDamping: 0.2, initialSpringVelocity: 6.0, options: .allowUserInteraction, animations: {
+                        sender.transform = .identity
+                    }, completion: nil)
+                }
             }
 
-            isCollected = !isCollected
-
-            sender.isSelected = isCollected
-            if isCollected {
-                sender.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
-                UIView.animate(withDuration: 1.5, delay: 0, usingSpringWithDamping: 0.2, initialSpringVelocity: 6.0, options: .allowUserInteraction, animations: {
-                    sender.transform = .identity
-                }, completion: nil)
-            }
         } else {
             appDelegate.presentAlertView("登入以使用收藏功能", message: nil) {
                 let loginVC = UIStoryboard.main?.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController

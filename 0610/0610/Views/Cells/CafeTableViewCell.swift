@@ -98,15 +98,20 @@ class CafeTableViewCell: UITableViewCell {
                 musicStarLabel.textColor = cafe.music == 1 ? UIColor(hexString: "EB5757") : musicStarLabel.textColor
 
 
-                let isCollected = realmManager.isCafeCollected(cafe)
+//                let isCollected = realmManager.isCafeCollected(cafe)
 //                let isCollected = UserDefaults.standard.bool(forKey: cafe.id)
-                
-                collectButton.isSelected = isCollected ? true : false
-//                collectButton.tintColor = isCollected ? UIColor(hexString: "EB5757") : Theme.current.tint
-                collectButton.tintColor = Theme.current.tint
-//                if !isCollected {
-//
-//                }
+                var isCollected = false
+                favoriteManager.isCafeCollected(cafe) { [weak self] (collected) in
+                    isCollected = collected
+
+
+                    self?.collectButton.isSelected = isCollected ? true : false
+                    //                collectButton.tintColor = isCollected ? UIColor(hexString: "EB5757") : Theme.current.tint
+                    self?.collectButton.tintColor = Theme.current.tint
+                    //                if !isCollected {
+                    //
+                    //                }
+                }
             }
         }
     }

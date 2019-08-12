@@ -56,25 +56,11 @@ class MyCollectedViewController: UIViewController {
     }
 
     @objc func getJSON() {
-        cafes = realmManager.getCafes()
-        tableView.reloadData()
-
-
-//        requestManager.getYilanCafe { [weak self] (cafes) in
-//            guard let strongSelf = self else { return }
-//
-//            var myCafes: [Cafe] = []
-//
-//            for cafe in cafes {
-//                let isCollected = UserDefaults.standard.bool(forKey: cafe.id)
-//                if isCollected {
-//                    myCafes.append(cafe)
-//                }
-//            }
-//
-//            strongSelf.cafes = myCafes
-//            strongSelf.tableView.reloadData()
-//        }
+//        cafes = realmManager.getCafes()
+        favoriteManager.getCafes({ [weak self] (cafes) in
+            self?.cafes = cafes
+            self?.tableView.reloadData()
+        })
     }
 
     fileprivate func applyTheme() {
@@ -135,23 +121,36 @@ extension MyCollectedViewController: CafeTableViewCellDelegate {
         cafe = cafes[indexPath.row]
 
         if loginManager.isLogin {
-            var isCollected = realmManager.isCafeCollected(cafe)
 
-            if isCollected {
-                realmManager.removeFavoriteCafe(cafe)
-            } else {
-                realmManager.addFavoriteCafe(cafe)
+            var isCollected = false
+            favoriteManager.isCafeCollected(cafe) { (collected) in
+                isCollected = collected
+                if isCollected {
+                    favoriteManager.removeFavoriteCafe(cafe)
+                } else {
+                    favoriteManager.addFavoriteCafe(cafe)
+                }
+
+                isCollected = !isCollected
+
+                sender.isSelected = isCollected
+                if isCollected {
+                    sender.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
+                    UIView.animate(withDuration: 1.5, delay: 0, usingSpringWithDamping: 0.2, initialSpringVelocity: 6.0, options: .allowUserInteraction, animations: {
+                        sender.transform = .identity
+                    }, completion: nil)
+                }
             }
 
-            isCollected = !isCollected
+//            var isCollected = realmManager.isCafeCollected(cafe)
 
-            sender.isSelected = isCollected
-            if isCollected {
-                sender.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
-                UIView.animate(withDuration: 1.5, delay: 0, usingSpringWithDamping: 0.2, initialSpringVelocity: 6.0, options: .allowUserInteraction, animations: {
-                    sender.transform = .identity
-                }, completion: nil)
-            }
+//            if isCollected {
+//                realmManager.removeFavoriteCafe(cafe)
+//            } else {
+//                realmManager.addFavoriteCafe(cafe)
+//            }
+
+
         } else {
             appDelegate.presentAlertView("登入以使用收藏功能", message: nil) {
                 let loginVC = UIStoryboard.main?.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
