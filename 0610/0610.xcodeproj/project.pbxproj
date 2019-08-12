@@ -16,6 +16,9 @@
 		8322687B22CF029100871323 /* ThemeProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8322687A22CF029100871323 /* ThemeProtocol.swift */; };
 		8322687D22CF032D00871323 /* LightTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8322687C22CF032D00871323 /* LightTheme.swift */; };
 		8322687F22CF03E600871323 /* DarkTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8322687E22CF03E600871323 /* DarkTheme.swift */; };
+		833A8C2522FBD263002F1B50 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833A8C2422FBD263002F1B50 /* User.swift */; };
+		833A8C2722FBD703002F1B50 /* LocalCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833A8C2622FBD703002F1B50 /* LocalCollection.swift */; };
+		833A8C2922FC11B6002F1B50 /* FavoriteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833A8C2822FC11B6002F1B50 /* FavoriteManager.swift */; };
 		8340704322B37B4A00F642F4 /* LLViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8340703B22B37B4900F642F4 /* LLViewExtensions.swift */; };
 		8340704422B37B4A00F642F4 /* LLPillPageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8340703C22B37B4900F642F4 /* LLPillPageControl.swift */; };
 		8340704522B37B4A00F642F4 /* LLCycleScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8340703D22B37B4900F642F4 /* LLCycleScrollView.swift */; };
@@ -84,6 +87,9 @@
 		8322687A22CF029100871323 /* ThemeProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeProtocol.swift; sourceTree = "<group>"; };
 		8322687C22CF032D00871323 /* LightTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightTheme.swift; sourceTree = "<group>"; };
 		8322687E22CF03E600871323 /* DarkTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkTheme.swift; sourceTree = "<group>"; };
+		833A8C2422FBD263002F1B50 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		833A8C2622FBD703002F1B50 /* LocalCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalCollection.swift; sourceTree = "<group>"; };
+		833A8C2822FC11B6002F1B50 /* FavoriteManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteManager.swift; sourceTree = "<group>"; };
 		8340703B22B37B4900F642F4 /* LLViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LLViewExtensions.swift; sourceTree = "<group>"; };
 		8340703C22B37B4900F642F4 /* LLPillPageControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LLPillPageControl.swift; sourceTree = "<group>"; };
 		8340703D22B37B4900F642F4 /* LLCycleScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LLCycleScrollView.swift; sourceTree = "<group>"; };
@@ -256,6 +262,7 @@
 				836811F622BB6B6800FAC2A9 /* ActivityCellContent.swift */,
 				83BCCD1A22C9C4B5007EFD14 /* Cafe.swift */,
 				83F3FA3022E815EB00C7A8CF /* CafeRealm.swift */,
+				833A8C2422FBD263002F1B50 /* User.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -345,6 +352,8 @@
 				8381389622AF51F50029683F /* RequestManager.swift */,
 				836A7D7322CDAE5400C53FE1 /* ImageManager.swift */,
 				8381A8CA22F2C53800B9A9D9 /* LoginManager.swift */,
+				833A8C2622FBD703002F1B50 /* LocalCollection.swift */,
+				833A8C2822FC11B6002F1B50 /* FavoriteManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -530,6 +539,7 @@
 				8340704922B37B4A00F642F4 /* LLImagePageControl.swift in Sources */,
 				83DA920A22B8938E00F85385 /* TypeSevenTableViewCell.swift in Sources */,
 				836A7D7622CDB75500C53FE1 /* Constants.swift in Sources */,
+				833A8C2922FC11B6002F1B50 /* FavoriteManager.swift in Sources */,
 				83DD456D22B22F8100514557 /* ButtonCollectionViewCell.swift in Sources */,
 				8322687B22CF029100871323 /* ThemeProtocol.swift in Sources */,
 				8340704522B37B4A00F642F4 /* LLCycleScrollView.swift in Sources */,
@@ -551,6 +561,7 @@
 				83F3FA3122E815EB00C7A8CF /* CafeRealm.swift in Sources */,
 				83DA920622B738A800F85385 /* ButtonTableViewCell.swift in Sources */,
 				8381A8CB22F2C53800B9A9D9 /* LoginManager.swift in Sources */,
+				833A8C2522FBD263002F1B50 /* User.swift in Sources */,
 				8381389722AF51F50029683F /* RequestManager.swift in Sources */,
 				8341C8F322AE42F50070EBA0 /* MainTabBarController.swift in Sources */,
 				8340704D22B383DC00F642F4 /* BannerTableViewCell.swift in Sources */,
@@ -561,6 +572,7 @@
 				83DA91FE22B737D200F85385 /* PayTableViewCell.swift in Sources */,
 				830BF11522CB0537001621DA /* MapViewController.swift in Sources */,
 				8341C8F522AE4A830070EBA0 /* MIxViewController.swift in Sources */,
+				833A8C2722FBD703002F1B50 /* LocalCollection.swift in Sources */,
 				8322687822CEFF7100871323 /* Theme.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

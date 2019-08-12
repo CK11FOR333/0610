@@ -100,6 +100,8 @@ class HomeViewController: UIViewController {
     var authHandle: AuthStateDidChangeListenerHandle?
     var isLogin: Bool = false
 
+    
+
     @IBOutlet weak var tableView: UITableView!
 
     @IBOutlet weak var SortView: UIView!
@@ -529,6 +531,8 @@ extension HomeViewController: CafeTableViewCellDelegate {
                 realmManager.removeFavoriteCafe(cafe)
             } else {
                 realmManager.addFavoriteCafe(cafe)
+
+                favoriteManager.addFavoriteCafe(cafe)
             }
 
             isCollected = !isCollected
