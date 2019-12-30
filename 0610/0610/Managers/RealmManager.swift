@@ -96,7 +96,8 @@ final class RealmManager {
                                  quiet: cafeRealm.quiet,
                                  tasty: cafeRealm.tasty,
                                  cheap: cafeRealm.cheap,
-                                 music: cafeRealm.music)
+                                 music: cafeRealm.music,
+                                 users: [])
             cafes.append(cafe)
         }
 

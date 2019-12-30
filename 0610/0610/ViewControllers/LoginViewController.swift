@@ -28,6 +28,7 @@ class LoginViewController: UIViewController {
 
     @IBAction func clickGoogleButton(_ sender: UIButton) {
         loginManager.delegate = self
+        loginManager.presentingViewController = self
         loginManager.loginGoogle()
     }
 
@@ -36,6 +37,7 @@ class LoginViewController: UIViewController {
             showEmailAndPasswordError()
         } else {
             loginManager.delegate = self
+            loginManager.presentingViewController = self
             loginManager.signUp(with: emailTextField.text!, password: passwordTextField.text!)
         }
     }
@@ -45,6 +47,7 @@ class LoginViewController: UIViewController {
             showEmailAndPasswordError()
         } else {
             loginManager.delegate = self
+            loginManager.presentingViewController = self
             loginManager.login(with: emailTextField.text!, password: passwordTextField.text!)
         }
     }

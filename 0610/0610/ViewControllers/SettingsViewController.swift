@@ -8,6 +8,8 @@
 
 import UIKit
 import MessageUI
+import Crashlytics
+
 
 class SettingsViewController: UIViewController {
 
@@ -313,7 +315,7 @@ extension SettingsViewController: LoginManagerDelegate {
     }
 
     func logoutSuccess() {
-        realmManager.removeAllCafes()
+//        realmManager.removeAllCafes()
         appDelegate.presentAlertView("登出成功", message: nil) {
             self.loginTitle = "登入"
             self.tableView.reloadData()

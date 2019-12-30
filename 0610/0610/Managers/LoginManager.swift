@@ -9,6 +9,7 @@
 import Foundation
 import Firebase
 import FirebaseAuth
+import FirebaseFirestore
 import GoogleSignIn
 import SVProgressHUD
 
@@ -33,6 +34,8 @@ final class LoginManager: NSObject {
     static let shared = LoginManager()
 
     var authHandle: AuthStateDidChangeListenerHandle?
+
+    var presentingViewController: UIViewController?
 
     var signInSilently = false
 
@@ -113,6 +116,7 @@ final class LoginManager: NSObject {
     }
 
     func loginGoogle() {
+        GIDSignIn.sharedInstance()?.presentingViewController = presentingViewController
         GIDSignIn.sharedInstance().signIn()
     }
 
@@ -137,6 +141,37 @@ final class LoginManager: NSObject {
                     strongSelf.accountName = user.displayName ?? ""
                     strongSelf.accountEmail = user.email ?? ""
                     strongSelf.accountPhotoUrl = user.photoURL?.absoluteString ?? ""
+
+//                    let collection = Firestore.firestore().collection("Users")
+//
+//                    let userDoc = User(providerID: user.providerID,
+//                                       uid: user.uid,
+//                                       displayName: user.displayName ?? "",
+//                                       photoURLstr: user.photoURL?.absoluteString ?? "",
+//                                       email: user.email ?? "",
+//                                       phoneNumber: user.phoneNumber ?? "")
+//
+//                    collection.addDocument(data: userDoc.dictionary)
+
+
+//                    // Writing data in a transaction
+//                    let firestore = Firestore.firestore()
+//                    firestore.runTransaction({ (transaction, errorPointer) -> Any? in
+//
+//                        let userDoc = User(providerID: user.providerID,
+//                                           uid: user.uid,
+//                                           displayName: user.displayName ?? "",
+//                                           photoURLstr: user.photoURL?.absoluteString ?? "",
+//                                           email: user.email ?? "",
+//                                           phoneNumber: user.phoneNumber ?? "")
+//
+//                        transaction.updateData([:], forDocument: userDoc)
+//
+//                    }, completion: { (object, error) in
+//                        if let error = error {
+//                            log.error("Transaction error: \(error.localizedDescription)")
+//                        }
+//                    })
 
                     strongSelf.delegate?.loginSuccess()
 

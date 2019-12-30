@@ -191,7 +191,8 @@ extension RequestManager {
                                 quiet: key["quiet"].intValue,
                                 tasty: key["tasty"].intValue,
                                 cheap: key["cheap"].intValue,
-                                music: key["music"].intValue)
+                                music: key["music"].intValue,
+                                users: [])
                 cafes.append(cafe)
             }
 
