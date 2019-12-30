@@ -65,7 +65,7 @@ final class LoginManager: NSObject {
 
     override init() {
         super.init()
-        GIDSignIn.sharedInstance().uiDelegate = self
+//        GIDSignIn.sharedInstance().uiDelegate = self
         NotificationCenter.default.addObserver(self, selector: #selector(receiveToggleAuthUINotification(_:)), name: NSNotification.Name(rawValue: "AuthLogin"), object: nil)
 
         authHandle = Auth.auth().addStateDidChangeListener { [weak self] (auth, user) in
@@ -204,30 +204,30 @@ final class LoginManager: NSObject {
 }
 
 // MARK: - GIDSignIn UI Delegate
-
-extension LoginManager: GIDSignInUIDelegate {
-
-    func sign(inWillDispatch signIn: GIDSignIn!, error: Error!) {
-        log.info("")
-        //        SVProgressHUD.show()
-    }
-
-    func sign(_ signIn: GIDSignIn!, present viewController: UIViewController!) {
-        log.info("")
-        if let visibleViewController = appDelegate.window?.visibleViewController {
-            visibleViewController.present(viewController, animated: true, completion: {
-                log.info("present")
-            })
-        }
-    }
-
-    func sign(_ signIn: GIDSignIn!, dismiss viewController: UIViewController!) {
-        log.info("")
-        if let visibleViewController = appDelegate.window?.visibleViewController {
-            visibleViewController.dismiss(animated: true, completion: {
-                log.info("dismiss")
-            })
-        }
-    }
-
-}
+//
+//extension LoginManager: GIDSignInUIDelegate {
+//
+//    func sign(inWillDispatch signIn: GIDSignIn!, error: Error!) {
+//        log.info("")
+//        //        SVProgressHUD.show()
+//    }
+//
+//    func sign(_ signIn: GIDSignIn!, present viewController: UIViewController!) {
+//        log.info("")
+//        if let visibleViewController = appDelegate.window?.visibleViewController {
+//            visibleViewController.present(viewController, animated: true, completion: {
+//                log.info("present")
+//            })
+//        }
+//    }
+//
+//    func sign(_ signIn: GIDSignIn!, dismiss viewController: UIViewController!) {
+//        log.info("")
+//        if let visibleViewController = appDelegate.window?.visibleViewController {
+//            visibleViewController.dismiss(animated: true, completion: {
+//                log.info("dismiss")
+//            })
+//        }
+//    }
+//
+//}

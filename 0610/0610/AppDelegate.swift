@@ -59,11 +59,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 extension AppDelegate {
 
-    @available(iOS 9.0, *)
-    func application(_ application: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any]) -> Bool {
-            return GIDSignIn.sharedInstance().handle(url,
-                                                     sourceApplication:options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String,
-                                                     annotation: [:])
+    func application(_ application: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any])
+        -> Bool {
+            return GIDSignIn.sharedInstance().handle(url)
     }
 
 }
@@ -125,7 +123,7 @@ extension AppDelegate: GIDSignInDelegate {
 
         if loginManager.isLogin && loginManager.accountProvider == "google" {
             loginManager.signInSilently = true
-            GIDSignIn.sharedInstance().signInSilently()
+            GIDSignIn.sharedInstance().restorePreviousSignIn()
         }
     }
 
